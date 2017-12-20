@@ -2,9 +2,9 @@
 
 Questions: 
 
-#### [How do I recompile an Elixir project and reload it from within iex?](https://stackoverflow.com/questions/36490089/how-do-i-recompile-an-elixir-project-and-reload-it-from-within-iex)
+### [How do I recompile an Elixir project and reload it from within iex?](https://stackoverflow.com/questions/36490089/how-do-i-recompile-an-elixir-project-and-reload-it-from-within-iex)
 
-#### How do I use type system in Elixir?
+### How do I use type system in Elixir?
 
 [Types](https://github.com/elixir-lang/elixir/blob/master/lib/elixir/pages/Typespecs.md)
 
