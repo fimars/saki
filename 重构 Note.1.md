@@ -59,7 +59,28 @@ Personal Point: 现代编程语言，基本上至少都具备闭包或面向对�
 1. 用小对象代替基本类型，如Range, Phone, ZIP, Money等
 2. 用小对象代替Array，字段集合，参数列(Introduce Parameter Object?)等
 
-**Switch Statements**
+**Switch Statements**（switch 惊悚现身）
 
-用多态代替Switch, 除非是单一函数中稍微用一下switch做流程控制
+用多态代替Switch, 除非是单一函数中稍微用一下switch做流程控制，否则不建议使用Switch。
 
+**Switch Statements**（平行继承体系）
+
+意义不明，貌似说有两个继承体系十分相似的类，就把它们修修改改合成一个吧。
+
+**Lazy class**（冗赘类）
+
+你所创建的内容都是需要成本去理解的，如果是无用的内容就让他庄严赴义吧。
+
+**Speculative Generality**（夸夸其谈的未来性）
+
+1. 如果这个抽象类没啥用，就Inline掉吧
+2. 如果函数参数为用上，就删掉吧
+3. 如果函数名有多余的抽象味道，就应该重命名它，让他更具备现实味道一点。
+
+如果函数和类唯一哥用户是测试用例，那么就是这个味道了。
+
+**Temporary Field （令人迷惑的暂时字段）**
+
+...
+
+暂时对嗅出味道已经没什么实感了，先往下看实际操作方法再回头查阅。
