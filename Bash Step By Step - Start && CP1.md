@@ -21,31 +21,29 @@
 
 
 
-## Bash Guide Notes 📝
+## Bash Guide Notes 📒
 
-简单记录一下各个章节的内容，更细致的东西另开一栏去记录。
-
-
+阅读笔记
 
 ### The Chapter: Commands And Arguments
 
-*预备知识:*
+**预备知识:**
 
-- Bash有很多语法糖，我把这堆🍬具体有啥放下面去了。
-- 指令块使用大括号包裹, `{ command1; command2 }`
-- Exec指令: 简而言之，新开一个进程，代替现有的进程。具体可见[Link](https://askubuntu.com/questions/525767/what-does-an-exec-command-do)
-- **FD, File Descriptor**
+1. 指令块使用大括号包裹, `{ command1; command2 }`
 
-  bash中有一个蛮重要的概念——File Descriptor(后简称FD)，FD是bash程序和外界交互的一个抽象，常见的有FD0(标准输入)、FD1(标准输入)、FD2(标准Error)。可以参考下图：
+2. Exec指令: 新开一个进程，代替现有的进程。具体可见 [Link](https://askubuntu.com/questions/525767/what-does-an-exec-command-do)
 
-  ![File Descriptor](http://guide.bash.academy/img/streams.png)
+3. **FD, File Descriptor**
+
+   bash中有一个蛮重要的概念——File Descriptor(后简称FD)，FD是bash程序和外界交互的一个抽象，常见的有FD0(标准输入)、FD1(标准输入)、FD2(标准Error)。可以参考下图：
+
+   ![File Descriptor](http://guide.bash.academy/img/streams.png)
 
 
 
-*可能会有用的情报:*
+**可能会有用的情报:**
 
-- Bash会为每条`指令`创建一个`subshell`，这个会放在后面讲解
-
+Bash会为每条`指令`创建一个`subshell`，这个会放在后面讲解
 
 
 
@@ -55,38 +53,38 @@
 
 **Syntax**
 
-- `[ something ]` 指是可选的
-- `[ FORMAT ...]` 指重复多个这个格式是合法的
+1. `[ something ]` 指是可选的
+2. `[ FORMAT ...]` 指重复多个这个格式是合法的
 
 **Command**
 
-一个 `指令`的基本形式:  `[环境变量 ...] 指令名 [参数 ...] [FD重定向 ...]`
+> 基本形式:  `[环境变量 ...] 指令名 [参数 ...] [FD重定向 ...]`
 
 **List 一串Commands**
 
-基本形式 :  `command control-operator[ commadn2 control-operator ... ]`	
+> 基本形式 :  `command control-operator[ commadn2 control-operator ... ]`	
 
 控制操作符包含  `|| && ;` `||`在前者执行失败的时候调用，`;`在前者执行结束之后调用, `&&`在前者执行成功之后调用
 
 **Compound Command 混合Command**
 
-基本形式:  `if list [ ;|<newline> ] then list [ ;|<newline> ] fi` 或 `{ list ; }`
+> 基本形式:  `if list [ ;|<newline> ] then list [ ;|<newline> ] fi` 或 `{ list ; }`
 
 **Coprocesses 异步Command**
 
-基本形式:  `coproc [ name ] command [ redirection ... ]`
+> 基本形式:  `coproc [ name ] command [ redirection ... ]`
 
 会在使用这个`$name`的时候去运行这个指令并拿到即时的结果
 
 **Functions**
 
-基本形式: `name () compound-command [ redirection ]`
+> 基本形式: `name () compound-command [ redirection ]`
 
 ()内没有参数，一直为空，拿参数直接用$1, $2即可。顺便说一下: `$$ - PID`, `$! - 后台PID`, `$? - exit code`, `$* - 参数列表 空格分割`, `$@ - 参数列表 回车分割`, `$# 参数个数`
 
 **Pipeline**  
 
-基本形式: `[time [-p]] [ ! ] command [ [|或|&] cmmand2 ... ]`
+> 基本形式: `[time [-p]] [ ! ] command [ [|或|&] cmmand2 ... ]`
 
 看个例子
 
@@ -111,10 +109,13 @@ $ time echo Hello
 
 #### 小节: Simple commands
 
-1. Bash会根据 `指令名` 去查找找 `定义的fn` , `builtin-fn` 或 `$PATH` 里有的程序去执行，type可以查找指令的所在位置 —— `type command`。
-2. command后面的参数用空格分割，字符串中有空格用`"`, `'`包裹或者用`\`转义空格。
-3. `""` 内可包裹变量`$variable` 或 命令`$(command)`
-4. 务必留意引号的使用，有个危险的例子可以看看
+**Command**
+
+指令名：Bash会根据 `指令名` 去查找 `已定义的fn` , `builtin-fn` 或 `$PATH` 里有的程序去执行，type可以查找指令的所在位置 —— `type command`。
+
+参数：command后面的参数用空格分割，字符串中有空格用`"`, `'`包裹或者用`\`转义空格。字符串`""` 内可包裹变量`$variable` 或 命令`$(command)`
+
+请务必留意引号的使用，有个危险的例子可以看看
 
 ```bash
 $ read -p 'Which user would you like to remove from your system ?' username
@@ -125,61 +126,62 @@ $ rm -vr /home/$username
 # -> rm -vr /home/ lucifa
 ```
 
-5. **REDIRECTION!**  DING, 已获得情报如下：
+**Redirection! **
 
-   1. `command >File` 可以把指令的FD1指向File
+>  DING, 已获得情报如下：
 
-   2. `command 2>File` 可以把指令的FD2指向File
+1. `command >File` 可以把指令的FD1指向File
 
-   3. `/dev ` 下存放的是直接指向系统设备的文件, `/dev/null` 则是其中一个特殊的存在，这个文件不管写，一直为空。可以把不在意的错误信息指向这个文件。
+2. `command 2>File` 可以把指令的FD2指向File
 
-   4. 当你很理所当然得使用如下操作时，其实情况非常危险⚠️
+3. `/dev ` 下存放的是直接指向系统设备的文件, `/dev/null` 则是其中一个特殊的存在，这个文件不管写，一直为空。可以把不在意的错误信息指向这个文件。
 
-      ```bash
-      $ ls -l a b >myfiles.ls 2>mayflies.ls
-      # 理想状态应该是，把正常输入写到myfiles, 然后，把错误信息写到后面
-      # 实际结果却如下
-      # -rw-r--r--  1 lhunath  stls: b: No such file or directoryaff  0 30 Apr 14:43 a
-      # 混乱的结果
-      ```
+4. 当你很理所当然得使用如下操作时，其实情况非常危险⚠️
 
-      因为两个FD同时打开了这个文件流，所以导致混合的结果。正确的操作如下
+   ```bash
+   $ ls -l a b >myfiles.ls 2>mayflies.ls
+   # 理想状态应该是，把正常输入写到myfiles, 然后，把错误信息写到后面
+   # 实际结果却如下
+   # -rw-r--r--  1 lhunath  stls: b: No such file or directoryaff  0 30 Apr 14:43 a
+   # 混乱的结果
+   ```
 
-      ```bash
-      $ ls -l a b >myfiles.ls 2>&1
-      # 使用 >& 操作符，让FD2指向FD1的文件流
-      ```
+   因为两个FD同时打开了这个文件流，所以导致混合的结果。正确的操作如下
 
-   5. `[x]>file, [x]<file` 指令的FD1指向文件，指令的FD0从文件输入
+   ```bash
+   $ ls -l a b >myfiles.ls 2>&1
+   # 使用 >& 操作符，让FD2指向FD1的文件流
+   ```
 
-   6. `[x]>&y 或 [x]<&y` 复制文件指向流，后者的使用场景还没看到, 但在SO某个问题中看到，前后两者的效果几乎一样 [Link](https://unix.stackexchange.com/questions/120532/what-does-exec-31-do)
+5. `[x]>file, [x]<file` 指令的FD1指向文件，指令的FD0从文件输入
 
-   7. `x>&-, x<&-` 用`-`去指向即关闭这个FD
+6. `[x]>&y 或 [x]<&y` 复制文件指向流，后者的使用场景还没看到, 但在SO某个问题中看到，前后两者的效果几乎一样 [Link](https://unix.stackexchange.com/questions/120532/what-does-exec-31-do)
 
-   8. `[x]>&y-, [x]<&y-`  是 `[x]>&y y>&-` 的语法糖
+7. `x>&-, x<&-` 用`-`去指向，即是关闭这个FD
 
-   9. `[x]>>file` Appending 文件指向
+8. `[x]>&y-, [x]<&y-`  是 `[x]>&y y>&-` 的语法糖
 
-   10. `[x]&>file` 同时重定向FD1，FD2到File
+9. `[x]>>file` Appending 文件指向
 
-   11. `[x]<>file` 把FD0, FD1都指向一个文件
+10. `[x]&>file` 同时重定向FD1，FD2到File
 
-       ```bash
-       $ exec 3>&1 >mylog; echo moo; exec 1>&3 3>&-
-       # 这个地方先把当前进程的FD1 copy 到FD3来，然后把FD1指向一个文件
-       # 接着来一发echo，等于是把输出值写到文件，最后结束的时候exec
-       # 重新把FD1指回一开始的Display，把FD3抛弃掉
-       ```
+11. `[x]<>file` 把FD0, FD1都指向一个文件
 
-   12. Here Documents
+    ```bash
+    $ exec 3>&1 >mylog; echo moo; exec 1>&3 3>&-
+    # 这个地方先把当前进程的FD1 copy 到FD3来，然后把FD1指向一个文件
+    # 接着来一发echo，等于是把输出值写到文件，最后结束的时候exec
+    # 重新把FD1指回一开始的Display，把FD3抛弃掉
+    ```
 
-       ```
-       command <<[-]分隔符(.)
-       	Documents
-       分隔符
-       ```
+12. Here Documents
 
-       直接把分隔符内的内容传输给`指令`的FD0, 带上`-`就是忽略内容每行开头的空格。
+    ```
+    command <<[-]分隔符(.)
+    	Documents
+    分隔符
+    ```
 
-   13. Here Strings, 类似前一个，更精简一些，`<<<string `即可
+    直接把分隔符内的内容传输给`指令`的FD0, 带上`-`就是忽略内容每行开头的空格。
 
+13. Here Strings, 类似前一个，更精简一些，`<<<string `即可
