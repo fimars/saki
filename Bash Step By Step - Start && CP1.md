@@ -126,6 +126,8 @@ $ rm -vr /home/$username
 # -> rm -vr /home/ lucifa
 ```
 
+
+
 **Redirection! **
 
 >  DING, 已获得情报如下：
