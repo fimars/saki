@@ -23,7 +23,7 @@
 
 ## Bash Guide Notes 📒
 
-阅读笔记
+> Bash Guide: http://guide.bash.academy/commands/
 
 ### The Chapter: Commands And Arguments
 
