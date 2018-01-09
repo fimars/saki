@@ -10,9 +10,7 @@
 
 ### 起手式 
 
-**Useful resources**
-
-*PS: Mac only, Sorry for the proletariat.*
+*PS: 一些有用的资源, Mac only, Sorry for the proletariat.*
 
 - [Update Bash In Mac By Brew](http://clubmate.fi/upgrade-to-bash-4-in-mac-os-x/)
 - [配合iterm2的高亮](https://superuser.com/questions/399594/color-scheme-not-applied-in-iterm2)
@@ -29,27 +27,30 @@
 
 **预备知识:**
 
-1. 指令块使用大括号包裹, `{ command1; command2 }`
+0. ~~指令块使用大括号包裹, `{ command1; command2 }`~~
 
-2. Exec指令: 新开一个进程，代替现有的进程。具体可见 [Link](https://askubuntu.com/questions/525767/what-does-an-exec-command-do)
-
-3. **FD, File Descriptor**
-
-   bash中有一个蛮重要的概念——File Descriptor(后简称FD)，FD是bash程序和外界交互的一个抽象，常见的有FD0(标准输入)、FD1(标准输入)、FD2(标准Error)。可以参考下图：
-
-   ![File Descriptor](http://guide.bash.academy/img/streams.png)
-
-
-
-**可能会有用的情报:**
-
-Bash会为每条`指令`创建一个`subshell`，这个会放在后面讲解
+1. Exec指令: 新开一个进程，代替现有的进程。具体可见 [这里](https://askubuntu.com/questions/525767/what-does-an-exec-command-do)
+2. **File Descriptor** 见下文
 
 
 
 
+#### File Descriptor
 
-#### 小节: 基本语法(Syntax)
+bash中有一个蛮重要的概念——File Descriptor(后简称FD)，FD是bash程序和外界交互的一个抽象，常见的有FD0(标准输入)、FD1(标准输入)、FD2(标准Error)。可以参考下图：
+
+![File Descriptor](http://guide.bash.academy/img/streams.png)
+
+
+~~**可能会有用的情报:**~~
+
+~~Bash会为每条`指令`创建一个`subshell`，这个会放在后面讲解~~
+
+
+
+#### 基本语法 Syntax
+
+注：这里以罗列语法为主，自己可以拿几个常用的指令在bash上试试看, 如: `echo`, `ls`, `cat` 等
 
 **Syntax**
 
@@ -74,19 +75,28 @@ Bash会为每条`指令`创建一个`subshell`，这个会放在后面讲解
 
 > 基本形式:  `coproc [ name ] command [ redirection ... ]`
 
-会在使用这个`$name`的时候去运行这个指令并拿到即时的结果
+注：会在使用这个`$name`的时候去运行这个指令并拿到即时的结果
 
 **Functions**
 
 > 基本形式: `name () compound-command [ redirection ]`
 
-()内没有参数，一直为空，拿参数直接用$1, $2即可。顺便说一下: `$$ - PID`, `$! - 后台PID`, `$? - exit code`, `$* - 参数列表 空格分割`, `$@ - 参数列表 回车分割`, `$# 参数个数`
+注：**()内没有参数，一直为空，参数通过$1, $2, $3...获取。**
+
+顺便说一下，一些有用的内置变量:
+
+-  `$$ - PID`
+-  `$! - 后台PID`
+-  `$? - exit code`
+-  `$* - 参数列表 空格分割`
+-  `$@ - 参数列表 回车分割`
+-  `$# 参数个数`
 
 **Pipeline**  
 
 > 基本形式: `[time [-p]] [ ! ] command [ [|或|&] cmmand2 ... ]`
 
-看个例子
+注：以下有个简单例子
 
 ```bash
 $ echo Hello | rev
@@ -107,13 +117,17 @@ $ time echo Hello
 
 
 
-#### 小节: Simple commands
+#### 简单命令 Simple commands
 
-**Command**
+主要内容就两个，一个是基本的命令使用，另外一个就是用于串联命令之间FD的各种重定向符号
 
-指令名：Bash会根据 `指令名` 去查找 `已定义的fn` , `builtin-fn` 或 `$PATH` 里有的程序去执行，type可以查找指令的所在位置 —— `type command`。
 
-参数：command后面的参数用空格分割，字符串中有空格用`"`, `'`包裹或者用`\`转义空格。字符串`""` 内可包裹变量`$variable` 或 命令`$(command)`
+
+**命令 Command**
+
+**指令名**：Bash会根据 `指令名` 去查找 `已定义的fn` , `builtin-fn` 或 `$PATH` 里有的程序去执行，type可以查找指令的所在位置 —— `type command`。
+
+**参数**：command后面的参数用空格分割，字符串中有空格用`"`, `'`包裹或者用`\`转义空格。字符串`""` 内可包裹变量`$variable` 或 命令`$(command)`
 
 请务必留意引号的使用，有个危险的例子可以看看
 
@@ -126,7 +140,9 @@ $ rm -vr /home/$username
 # -> rm -vr /home/ lucifa
 ```
 
-**Redirection**
+
+
+**重定向 Redirection**
 
 >  DING, 已获得情报如下：
 
