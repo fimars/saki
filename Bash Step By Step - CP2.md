@@ -135,3 +135,7 @@ Result: expansions.html
 ```
 
 再次提醒，这些命令子句都只能使用在**双引号**之间!
+
+
+
+> MMP bash guide 不更新了… 我得另谋出路
