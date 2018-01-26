@@ -91,3 +91,47 @@ $ echo "$name's current record is ${time}s."
 hali bote's current record is 23.23s.
 ```
 
+
+
+### 变量扩展 Parameter Expansion
+
+**再次留意**， `${variable}` 这个形式只能使用在**双引号**之间，接下来要比较详细得讲解一些扩展用法。
+
+我们来看一个例子
+
+```bash
+$ name=Britta time=23.73
+$ echo "$name's current record is ${time%.*} seconds and ${time#*.} hundredths."
+Britta's current record is 23 seconds and 73 hundredths.
+$ echo "PATH currently contains: ${PATH//:/, }"
+PATH currently contains: /Users/lhunath/.bin, /usr/local/bin, /usr/bin, /bin, /usr/libexec
+
+# From Guide Bash
+```
+
+你可能留意到了`${}`中的一些特殊用法，`%`是从后向前匹配最小满足该形式的内容并删去，而`#`类似前者，不过是从前向后匹配。而下一句命令里的`//A/B`则是匹配所有满足A形式的内容替换成B。还有一些常见的可以看Bash-Guide的[这个地方](http://guide.bash.academy/expansions/?=Parameter_Expansion#p2.2.2_5)，或者是下面的一个简单总结。
+
+```bash
+# 例子
+url="http://guide.bash.academy/expansions.html"
+$ echo "Result: ${url#*/}" # 从开头开始，匹配满足*/的最小内容，并移除
+Result: /guide.bash.academy/expansions.html
+
+$ ...${url##*/}... # 两个##和一个#的区别在于，匹配的是满足情况的最大内容
+Result: expansions.html
+
+# ${parameter$A} 是从后向前匹配并移除, $$即最大内容
+
+# ${parameter/A/B} 是匹配第一个满足情况A的内容替换成B
+# ${parameter//A/B} 则是匹配所有满足情况的替换
+
+# ${parameter/#A/B} 是从__开头__匹配第一个满足情况A的替换成B
+# ${parameter/%A/B} 则是从__结尾__匹配
+
+# ${#parameter} 计算参数的长度
+# ${parameter:start[:length]} start是截取开始的字符位置，length为截取长度，可省略或者是负数(负数即从后向前数)
+
+# #{parameter[^|^^|,|,,][A]} 根据形式A(不传即匹配任意字符)去把参数转换成^(首个匹配到大写) ^^(所有匹配到大写) ,(首个匹配到小写) ,,(所有匹配到小写)
+```
+
+再次提醒，这些命令子句都只能使用在**双引号**之间!
