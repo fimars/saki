@@ -10,9 +10,7 @@ tags: HellDoc,工具,编程
 
 
 
-`HellDoc`是我拿来理解[`vuepress`](https://github.com/vuejs/vuepress/blob/master/)工作方式的一个玩具项目。
-
-开发的过程中遇到的问题正是我学习的机会，以下是一些我在开发`HellDoc`之前所不熟悉或事一知半解的内容:
+`HellDoc`就是我拿来理解[`vuepress`](https://github.com/vuejs/vuepress/blob/master/)工作方式的一个玩具项目。开发的过程中遇到的问题正是我学习的机会，下面是一些我在这之前所不熟悉或事一知半解的内容:
 
 ### 文档的修改到应用到更新
 
