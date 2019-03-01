@@ -1,6 +1,9 @@
 module.exports = {
   title: '|> Saki',
-  dest: 'docs',
   base: '/saki/',
-  ignores: ["README.md", "ignores/*"]
+  dest: 'docs',
+  ignores: ["README.md", "ignores/*"],
+  head: [
+    ['link', { rel: 'icon', href: './favicon.png' }]
+  ]
 }
