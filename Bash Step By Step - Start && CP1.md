@@ -1,4 +1,4 @@
-## **Bash** Step By Step
+## Bash Step By Step
 
 > 翻译：Bash我TM社保 —— 某不愿意透露姓名的Ass We Can大佬(纯虚构)
 
