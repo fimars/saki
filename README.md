@@ -1,6 +1,6 @@
 ![Saki Logo](./Saki.png)
 
-> Welcome to `Saki`, 一个没什么内容的Blog
+> Welcome to `Saki`,  Let's talk we want to talk.
 
 ## 关于我
 

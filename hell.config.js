@@ -10,6 +10,7 @@ module.exports = {
     nav: [
       { text: '关于我', link: '/' },
       { text: '关于HellDoc', link: '/About Hell' },
+      { text: 'More Webpack', link: '/More Webpack' },
       { text: 'Bash指令1', link: '/Bash Step By Step - Start && CP1' },
       { text: 'Bash指令2', link: '/Bash Step By Step - CP2' }
     ]
