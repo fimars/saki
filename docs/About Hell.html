@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="./assets/css/1.styles.13059927.css"></link>
+  <title>Hell SSR</title>
+</head>
+<body>
+  <div id="app">
+    <div class="base"><div class="navbar"><div class="nav-left"><i class="fas fa-bars mobile-bar"></i><a class="navstyle" href="/saki//"><div>关于我</div></a><a class="navstyle" href="/saki//About Hell"><div>关于HellDoc</div></a><a class="navstyle" href="/saki//More Webpack"><div>More Webpack</div></a><a class="navstyle" href="/saki//TypeScript 2.8 News"><div>TypeScript 2.8 News</div></a></div><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" value="" class="" id="searchInput"/></div></div><div><div class="columns"><div class="side "><div class="nav"><div class="sidebar"><div class="sidebar-top"><a class="navstyle" href="/saki//"><div>关于我</div></a><a class="navstyle" href="/saki//About Hell"><div>关于HellDoc</div></a><a class="navstyle" href="/saki//More Webpack"><div>More Webpack</div></a><a class="navstyle" href="/saki//TypeScript 2.8 News"><div>TypeScript 2.8 News</div></a></div><div class="sibar-bottom"><div class="nav-label-item level-3 has-child"><a href="/saki//About Hell#1.%20Markdown%20%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9%E7%9A%84%E5%8D%B3%E6%97%B6%E6%9B%B4%E6%96%B0">1. Markdown 文件修改的即时更新</a></div><div class="nav-label-item level-3 has-child"><a href="/saki//About Hell#2.%20%E9%9D%9E%E5%B8%B8%E5%8F%8B%E5%A5%BD%E7%9A%84%20Logger%20%E6%8F%90%E7%A4%BA">2. 非常友好的 Logger 提示</a></div><div class="nav-label-item level-3 has-child"><a href="/saki//About Hell#3.%20DevServer%20%E7%9A%84%E8%B7%AF%E7%94%B1%E8%AE%BE%E7%BD%AE%E5%8F%82%E8%80%83">3. DevServer 的路由设置参考</a></div><div class="nav-label-item level-3 has-child"><a href="/saki//About Hell#OVA">OVA</a></div></div></div></div></div><div class="content main"><div class="markdown-body section"><blockquote>
+<p>What I cannot create, I do not understand. —— Feynman</p>
+</blockquote>
+<p><code>HellDoc</code>就是我拿来理解<a href="https://github.com/vuejs/vuepress/blob/master/"><code>vuepress</code></a>工作方式的一个玩具项目。开发的过程中遇到的问题正是我学习的机会，下面是一些我在这之前所不熟悉或事一知半解的内容:</p>
+<h3 id="1-markdown-文件修改的即时更新">1. Markdown 文件修改的即时更新</h3>
+<p>vuepress 会把收集到的 md 文件通过 <a href="https://github.com/vuejs/vuepress/blob/master/packages/%40vuepress/markdown-loader/index.js"><code>markdown-loader</code></a> 编译成一个个的 vue 组件，并且生成一个包括了这些组件的文档应用的 route 文件。</p>
+<p>在这个基础上，<code>*.md</code>文件的修改理所当然得会被 webpack 自动捕捉到（因为已经在上面生成的 route 的依赖列表里了）；而对于目录上的文件增删则是用<a href="https://github.com/paulmillr/chokidar"><code>chokidar</code></a>做了文件目录的 watch，触发的时候重新渲染<code>router</code>文件</p>
+<p>值得一提的是，在修改<code>config.js</code>这样的配置文件的时候：因为 nodejs 对 js-module 做了缓存的原因，无法触发文件更新，这时候就需要把<code>require.cache[absoluteFilePath]</code>的缓存内容删除，然后再进行后续的文档 App 部分的更新。</p>
+<h3 id="2-非常友好的-logger-提示">2. 非常友好的 Logger 提示</h3>
+<p>vuepress 中让我觉得特别友好的 log 提示是怎么做到的</p>
+<ol>
+<li>@vuepress/logger 统一的 logger 模块</li>
+<li><a href="https://github.com/nuxt/webpackbar">webpackbar</a> 给你更直观的编译信息</li>
+<li>在需要的生命周期中添加合理的<a href="https://github.com/vuejs/vuepress/blob/master/packages/%40vuepress/core/lib/webpack/DevLogPlugin.js">log 插件</a></li>
+</ol>
+<h3 id="3-devserver-的路由设置参考">3. DevServer 的路由设置参考</h3>
+<p>vuepress 的 dev 指令是在本地编写文档的时候使用的，你可以从这里学到一个 SPA 应用在测试的时候 webpackDevServer 如何设置最为<strong>自由</strong>,<strong>效率</strong></p>
+<pre><code class="language-javascript"><span class="token comment">// 摘自@vuepress/core dev.js</span>
+<span class="token keyword">const</span> serverConfig <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span>
+  <span class="token punctuation">{</span>
+    disableHostCheck<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    compress<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    clientLogLevel<span class="token punctuation">:</span> <span class="token string">"error"</span><span class="token punctuation">,</span>
+    hot<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    quiet<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">// vuepress里面的log都通过插件或自己处理了</span>
+    headers<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      <span class="token string">"access-control-allow-origin"</span><span class="token punctuation">:</span> <span class="token string">"*"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    open<span class="token punctuation">:</span> cliOptions<span class="token punctuation">.</span>open<span class="token punctuation">,</span>
+    publicPath<span class="token punctuation">:</span> ctx<span class="token punctuation">.</span>base<span class="token punctuation">,</span>
+    watchOptions<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      ignored<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token regex">/node_modules/</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token string">`!</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>ctx<span class="token punctuation">.</span>tempPath<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/**`</span></span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    historyApiFallback<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      disableDotRule<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      rewrites<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span> <span class="token keyword">from</span><span class="token punctuation">:</span> <span class="token regex">/./</span><span class="token punctuation">,</span> to<span class="token punctuation">:</span> path<span class="token punctuation">.</span>posix<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>ctx<span class="token punctuation">.</span>base<span class="token punctuation">,</span> <span class="token string">"index.html"</span><span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    overlay<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    host<span class="token punctuation">,</span>
+    contentBase<span class="token punctuation">,</span>
+    <span class="token function">before</span><span class="token punctuation">(</span><span class="token parameter">app<span class="token punctuation">,</span> server</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>fs<span class="token punctuation">.</span><span class="token function">existsSync</span><span class="token punctuation">(</span>contentBase<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>ctx<span class="token punctuation">.</span>base<span class="token punctuation">,</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"express"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">static</span><span class="token punctuation">(</span>contentBase<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      ctx<span class="token punctuation">.</span>pluginAPI<span class="token punctuation">.</span>options<span class="token punctuation">.</span>beforeDevServer<span class="token punctuation">.</span><span class="token function">syncApply</span><span class="token punctuation">(</span>app<span class="token punctuation">,</span> server<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token function">after</span><span class="token punctuation">(</span><span class="token parameter">app<span class="token punctuation">,</span> server</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      ctx<span class="token punctuation">.</span>pluginAPI<span class="token punctuation">.</span>options<span class="token punctuation">.</span>afterDevServer<span class="token punctuation">.</span><span class="token function">syncApply</span><span class="token punctuation">(</span>app<span class="token punctuation">,</span> server<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  ctx<span class="token punctuation">.</span>siteConfig<span class="token punctuation">.</span>devServer <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h3 id="ova">OVA</h3>
+<p>因为自己是 TS 用户，顺手帮社区补全了一下<a href="https://github.com/neutrinojs/webpack-chain/pull/132"><code>webpack-chian</code></a>的类型声明文件。</p>
+<p>: )</p>
+</div></div></div></div></div>
+  </div>
+  <script src="./assets/js/client.9239c44e.js"></script>
+<script src="./assets/js/styles.13059927.js"></script>
+</body>
+</html>

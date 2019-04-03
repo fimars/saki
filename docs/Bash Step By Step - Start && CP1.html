@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="./assets/css/1.styles.13059927.css"></link>
+  <title>Hell SSR</title>
+</head>
+<body>
+  <div id="app">
+    <div class="base"><div class="navbar"><div class="nav-left"><i class="fas fa-bars mobile-bar"></i><a class="navstyle" href="/saki//"><div>关于我</div></a><a class="navstyle" href="/saki//About Hell"><div>关于HellDoc</div></a><a class="navstyle" href="/saki//More Webpack"><div>More Webpack</div></a><a class="navstyle" href="/saki//TypeScript 2.8 News"><div>TypeScript 2.8 News</div></a></div><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" value="" class="" id="searchInput"/></div></div><div><div class="columns"><div class="side "><div class="nav"><div class="sidebar"><div class="sidebar-top"><a class="navstyle" href="/saki//"><div>关于我</div></a><a class="navstyle" href="/saki//About Hell"><div>关于HellDoc</div></a><a class="navstyle" href="/saki//More Webpack"><div>More Webpack</div></a><a class="navstyle" href="/saki//TypeScript 2.8 News"><div>TypeScript 2.8 News</div></a></div><div class="sibar-bottom"><div class="nav-label-item level-2 has-child"><a href="/saki//Bash Step By Step - Start &amp;&amp; CP1#Bash%20Step%20By%20Step">Bash Step By Step</a></div><div class="nav-label-item level-3 has-child"><a href="/saki//Bash Step By Step - Start &amp;&amp; CP1#%E7%BC%98%E7%94%B1">缘由</a></div><div class="nav-label-item level-3 has-child"><a href="/saki//Bash Step By Step - Start &amp;&amp; CP1#%E8%B5%B7%E6%89%8B%E5%BC%8F">起手式</a></div><div class="nav-label-item level-2 has-child"><a href="/saki//Bash Step By Step - Start &amp;&amp; CP1#Bash%20Guide%20Notes%20%F0%9F%93%92">Bash Guide Notes 📒</a></div><div class="nav-label-item level-3 has-child"><a href="/saki//Bash Step By Step - Start &amp;&amp; CP1#The%20Chapter%3A%20Commands%20And%20Arguments">The Chapter: Commands And Arguments</a></div><div class="nav-label-item level-4 has-child"><a href="/saki//Bash Step By Step - Start &amp;&amp; CP1#File%20Descriptor">File Descriptor</a></div><div class="nav-label-item level-4 has-child"><a href="/saki//Bash Step By Step - Start &amp;&amp; CP1#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%20Syntax">基本语法 Syntax</a></div><div class="nav-label-item level-4 has-child"><a href="/saki//Bash Step By Step - Start &amp;&amp; CP1#%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4%20Simple%20commands">简单命令 Simple commands</a></div></div></div></div></div><div class="content main"><div class="markdown-body section"><h2 id="bash-step-by-step">Bash Step By Step</h2>
+<blockquote>
+<p>翻译：Bash我TM社保 —— 某不愿意透露姓名的Ass We Can大佬(纯虚构)</p>
+</blockquote>
+<h3 id="缘由">缘由</h3>
+<p>这个月我原本是为了填一个MusicApp的坑，准备入Kotlin的。按照之前的经验，学习语言的初期刷题是一个对提高熟练度非常有帮助的方法，但是当我点开CW的语言分类的时候，我惊喜得发现有Bash这个shell。好“骑”心爆棚的我点进了Bash的题库随便点开了一道，然后就蒙住了。我对不起当年的系统课上的linux老师，对不起作业，我决定把Bash捡起来。（Kotlin呢，MusicApp呢？</p>
+<h3 id="起手式">起手式</h3>
+<p><em>PS: 一些有用的资源, Mac only, Sorry for the proletariat.</em></p>
+<ul>
+<li><a href="http://clubmate.fi/upgrade-to-bash-4-in-mac-os-x/">Update Bash In Mac By Brew</a></li>
+<li><a href="https://superuser.com/questions/399594/color-scheme-not-applied-in-iterm2">配合iterm2的高亮</a></li>
+<li><a href="http://guide.bash.academy/">Bash Guide</a> 目前在看的就是这个</li>
+</ul>
+<h2 id="bash-guide-notes-📒">Bash Guide Notes 📒</h2>
+<blockquote>
+<p>Bash Guide: <a href="http://guide.bash.academy/commands/">http://guide.bash.academy/commands/</a></p>
+</blockquote>
+<h3 id="the-chapter-commands-and-arguments">The Chapter: Commands And Arguments</h3>
+<p><strong>预备知识:</strong></p>
+<ol start="0">
+<li><p><del>指令块使用大括号包裹, <code>{ command1; command2 }</code></del></p>
+</li>
+<li><p>Exec指令: 新开一个进程，代替现有的进程。具体可见 <a href="https://askubuntu.com/questions/525767/what-does-an-exec-command-do">这里</a></p>
+</li>
+<li><p><strong>File Descriptor</strong> 见下文</p>
+</li>
+</ol>
+<h4 id="file-descriptor">File Descriptor</h4>
+<p>bash中有一个蛮重要的概念——File Descriptor(后简称FD)，FD是bash程序和外界交互的一个抽象，常见的有FD0(标准输入)、FD1(标准输入)、FD2(标准Error)。可以参考下图：</p>
+<p><img src="http://guide.bash.academy/img/streams.png" alt="File Descriptor"></p>
+<p><del><strong>可能会有用的情报:</strong></del></p>
+<p><del>Bash会为每条<code>指令</code>创建一个<code>subshell</code>，这个会放在后面讲解</del></p>
+<h4 id="基本语法-syntax">基本语法 Syntax</h4>
+<p>注：这里以罗列语法为主，自己可以拿几个常用的指令在bash上试试看, 如: <code>echo</code>, <code>ls</code>, <code>cat</code> 等</p>
+<p><strong>Syntax</strong></p>
+<ol>
+<li><code>[ something ]</code> 指是可选的</li>
+<li><code>[ FORMAT ...]</code> 指重复多个这个格式是合法的</li>
+</ol>
+<p><strong>Command</strong></p>
+<blockquote>
+<p>基本形式:  <code>[环境变量 ...] 指令名 [参数 ...] [FD重定向 ...]</code></p>
+</blockquote>
+<p><strong>List 一串Commands</strong></p>
+<blockquote>
+<p>基本形式 :  <code>command control-operator[ commadn2 control-operator ... ]</code>    </p>
+</blockquote>
+<p>控制操作符包含  <code>|| &amp;&amp; ;</code> <code>||</code>在前者执行失败的时候调用，<code>;</code>在前者执行结束之后调用, <code>&amp;&amp;</code>在前者执行成功之后调用</p>
+<p><strong>Compound Command 混合Command</strong></p>
+<blockquote>
+<p>基本形式:  <code>if list [ ;|&lt;newline&gt; ] then list [ ;|&lt;newline&gt; ] fi</code> 或 <code>{ list ; }</code></p>
+</blockquote>
+<p><strong>Coprocesses 异步Command</strong></p>
+<blockquote>
+<p>基本形式:  <code>coproc [ name ] command [ redirection ... ]</code></p>
+</blockquote>
+<p>注：会在使用这个<code>$name</code>的时候去运行这个指令并拿到即时的结果</p>
+<p><strong>Functions</strong></p>
+<blockquote>
+<p>基本形式: <code>name () compound-command [ redirection ]</code></p>
+</blockquote>
+<p>注：<strong>()内没有参数，一直为空，参数通过$1, $2, $3...获取。</strong></p>
+<p>顺便说一下，一些有用的内置变量:</p>
+<ul>
+<li><code>$$ - PID</code></li>
+<li><code>$! - 后台PID</code></li>
+<li><code>$? - exit code</code></li>
+<li><code>$* - 参数列表 空格分割</code></li>
+<li><code>$@ - 参数列表 回车分割</code></li>
+<li><code>$# 参数个数</code></li>
+</ul>
+<p><strong>Pipeline</strong>  </p>
+<blockquote>
+<p>基本形式: <code>[time [-p]] [ ! ] command [ [|或|&amp;] cmmand2 ... ]</code></p>
+</blockquote>
+<p>注：以下有个简单例子</p>
+<pre><code class="language-bash">$ <span class="token keyword">echo</span> Hello <span class="token operator">|</span> <span class="token function">rev</span>
+<span class="token comment"># output: olleH</span>
+
+$ <span class="token function">rm</span> doesntexistfile <span class="token operator">|</span><span class="token operator">&amp;</span> <span class="token function">rev</span>
+<span class="token comment"># output: yrotcerid ro elif hcus oN :eliftsixetnseod :mr</span>
+
+$ <span class="token function">time</span> <span class="token keyword">echo</span> Hello
+<span class="token comment"># output: Hello &lt;newline>&lt;newline> echo 0m0.004s etc...</span>
+
+<span class="token comment"># ! 关键字暂时没有讨论到，待补充</span></code></pre>
+<p><code>Pipeline</code>具体做的事情就是：把前一条指令的FD1,2，指向了下一跳指令的FD0;</p>
+<p>且有<code>cm1 | cm2</code> ，<code>cm1 |&amp; cm2</code>两种形式。第二种我还是第一次知道呢/doge</p>
+<h4 id="简单命令-simple-commands">简单命令 Simple commands</h4>
+<p>主要内容就两个，一个是基本的命令使用，另外一个就是用于串联命令之间FD的各种重定向符号</p>
+<p><strong>命令 Command</strong></p>
+<p><strong>指令名</strong>：Bash会根据 <code>指令名</code> 去查找 <code>已定义的fn</code> , <code>builtin-fn</code> 或 <code>$PATH</code> 里有的程序去执行，type可以查找指令的所在位置 —— <code>type command</code>。</p>
+<p><strong>参数</strong>：command后面的参数用空格分割，字符串中有空格用<code>&quot;</code>, <code>&#39;</code>包裹或者用<code>\</code>转义空格。字符串<code>&quot;&quot;</code> 内可包裹变量<code>$variable</code> 或 命令<code>$(command)</code></p>
+<p>请务必留意引号的使用，有个危险的例子可以看看</p>
+<pre><code class="language-bash">$ <span class="token function">read</span> -p <span class="token string">'Which user would you like to remove from your system ?'</span> username
+<span class="token comment"># Something Print ...?  lucifa</span>
+
+$ <span class="token function">rm</span> -vr /home/<span class="token variable">$username</span>
+<span class="token comment"># Broken! this command will be:</span>
+<span class="token comment"># -> rm -vr /home/ lucifa</span></code></pre>
+<p><strong>重定向 Redirection</strong></p>
+<blockquote>
+<p> DING, 已获得情报如下：</p>
+</blockquote>
+<ol>
+<li><p><code>command &gt;File</code> 可以把指令的FD1指向File</p>
+</li>
+<li><p><code>command 2&gt;File</code> 可以把指令的FD2指向File</p>
+</li>
+<li><p><code>/dev</code> 下存放的是直接指向系统设备的文件, <code>/dev/null</code> 则是其中一个特殊的存在，这个文件不管写，一直为空。可以把不在意的错误信息指向这个文件。</p>
+</li>
+<li><p>当你很理所当然得使用如下操作时，其实情况非常危险⚠️</p>
+<pre><code class="language-bash">$ <span class="token function">ls</span> -l a b <span class="token operator">></span>myfiles.ls 2<span class="token operator">></span>mayflies.ls
+<span class="token comment"># 理想状态应该是，把正常输入写到myfiles, 然后，把错误信息写到后面</span>
+<span class="token comment"># 实际结果却如下</span>
+<span class="token comment"># -rw-r--r--  1 lhunath  stls: b: No such file or directoryaff  0 30 Apr 14:43 a</span>
+<span class="token comment"># 混乱的结果</span></code></pre>
+<p>因为两个FD同时打开了这个文件流，所以导致混合的结果。正确的操作如下</p>
+<pre><code class="language-bash">$ <span class="token function">ls</span> -l a b <span class="token operator">></span>myfiles.ls 2<span class="token operator">></span><span class="token operator">&amp;</span>1
+<span class="token comment"># 使用 >&amp; 操作符，让FD2指向FD1的文件流</span></code></pre>
+</li>
+<li><p><code>[x]&gt;file, [x]&lt;file</code> 指令的FD1指向文件，指令的FD0从文件输入</p>
+</li>
+<li><p><code>[x]&gt;&amp;y 或 [x]&lt;&amp;y</code> 复制文件指向流，后者的使用场景还没看到, 但在SO某个问题中看到，前后两者的效果几乎一样 <a href="https://unix.stackexchange.com/questions/120532/what-does-exec-31-do">Link</a></p>
+</li>
+<li><p><code>x&gt;&amp;-, x&lt;&amp;-</code> 用<code>-</code>去指向，即是关闭这个FD</p>
+</li>
+<li><p><code>[x]&gt;&amp;y-, [x]&lt;&amp;y-</code>  是 <code>[x]&gt;&amp;y y&gt;&amp;-</code> 的语法糖</p>
+</li>
+<li><p><code>[x]&gt;&gt;file</code> Appending 文件指向</p>
+</li>
+<li><p><code>[x]&amp;&gt;file</code> 同时重定向FD1，FD2到File</p>
+</li>
+<li><p><code>[x]&lt;&gt;file</code> 把FD0, FD1都指向一个文件</p>
+<pre><code class="language-bash">$ <span class="token function">exec</span> 3<span class="token operator">></span><span class="token operator">&amp;</span>1 <span class="token operator">></span>mylog<span class="token punctuation">;</span> <span class="token keyword">echo</span> moo<span class="token punctuation">;</span> <span class="token function">exec</span> 1<span class="token operator">></span><span class="token operator">&amp;</span>3 3<span class="token operator">></span><span class="token operator">&amp;</span>-
+<span class="token comment"># 这个地方先把当前进程的FD1 copy 到FD3来，然后把FD1指向一个文件</span>
+<span class="token comment"># 接着来一发echo，等于是把输出值写到文件，最后结束的时候exec</span>
+<span class="token comment"># 重新把FD1指回一开始的Display，把FD3抛弃掉</span></code></pre>
+</li>
+<li><p>Here Documents</p>
+<pre><code>command &lt;&lt;[-]分隔符(.)
+    Documents
+分隔符</code></pre><p>直接把分隔符内的内容传输给<code>指令</code>的FD0, 带上<code>-</code>就是忽略内容每行开头的空格。</p>
+</li>
+<li><p>Here Strings, 类似前一个，更精简一些，<code>&lt;&lt;&lt;string</code>即可</p>
+</li>
+</ol>
+</div></div></div></div></div>
+  </div>
+  <script src="./assets/js/client.9239c44e.js"></script>
+<script src="./assets/js/styles.13059927.js"></script>
+</body>
+</html>

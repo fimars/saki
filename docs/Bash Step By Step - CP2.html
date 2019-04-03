@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="./assets/css/1.styles.13059927.css"></link>
+  <title>Hell SSR</title>
+</head>
+<body>
+  <div id="app">
+    <div class="base"><div class="navbar"><div class="nav-left"><i class="fas fa-bars mobile-bar"></i><a class="navstyle" href="/saki//"><div>关于我</div></a><a class="navstyle" href="/saki//About Hell"><div>关于HellDoc</div></a><a class="navstyle" href="/saki//More Webpack"><div>More Webpack</div></a><a class="navstyle" href="/saki//TypeScript 2.8 News"><div>TypeScript 2.8 News</div></a></div><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" value="" class="" id="searchInput"/></div></div><div><div class="columns"><div class="side "><div class="nav"><div class="sidebar"><div class="sidebar-top"><a class="navstyle" href="/saki//"><div>关于我</div></a><a class="navstyle" href="/saki//About Hell"><div>关于HellDoc</div></a><a class="navstyle" href="/saki//More Webpack"><div>More Webpack</div></a><a class="navstyle" href="/saki//TypeScript 2.8 News"><div>TypeScript 2.8 News</div></a></div><div class="sibar-bottom"><div class="nav-label-item level-2 has-child"><a href="/saki//Bash Step By Step - CP2#Bash%20Guide%20Notes%20%F0%9F%93%92">Bash Guide Notes 📒</a></div><div class="nav-label-item level-3 has-child"><a href="/saki//Bash Step By Step - CP2#%E8%B7%AF%E5%BE%84%E6%89%A9%E5%B1%95%20">路径扩展 </a></div><div class="nav-label-item level-3 has-child"><a href="/saki//Bash Step By Step - CP2#~%20%E7%AC%A6%E5%8F%B7">~ 符号</a></div><div class="nav-label-item level-3 has-child"><a href="/saki//Bash Step By Step - CP2#%E5%91%BD%E4%BB%A4%E5%AD%90%E5%8F%A5">命令子句</a></div><div class="nav-label-item level-3 has-child"><a href="/saki//Bash Step By Step - CP2#Re-use%20Code">Re-use Code</a></div><div class="nav-label-item level-3 has-child"><a href="/saki//Bash Step By Step - CP2#Shell%20%E5%8F%98%E9%87%8F">Shell 变量</a></div><div class="nav-label-item level-3 has-child"><a href="/saki//Bash Step By Step - CP2#%E5%8F%98%E9%87%8F%E6%89%A9%E5%B1%95%20Parameter%20Expansion">变量扩展 Parameter Expansion</a></div></div></div></div></div><div class="content main"><div class="markdown-body section"><h2 id="bash-guide-notes-📒">Bash Guide Notes 📒</h2>
+<blockquote>
+<p>Bash Guide: <a href="http://guide.bash.academy/expansions/">http://guide.bash.academy/expansions/</a></p>
+<p> The Chapter: Variables and Expansions</p>
+</blockquote>
+<p>今天也有在看Parcel和Parcel的代码，因为自己的项目用到了这个新的Bundler库，看到一个很有意思的<a href="https://github.com/parcel-bundler/parcel/issues/110#issuecomment-350259878">issue</a>。里面这个shell蛮有意思的。</p>
+<h3 id="路径扩展-pathname-expansion">路径扩展 (Pathname Expansion)</h3>
+<p>看个例子:</p>
+<pre><code class="language-bash">$ <span class="token function">cd</span> ~/Downloads
+$ <span class="token function">rm</span> -v *
+removed <span class="token string">'05 *****.ogg'</span>
+removed <span class="token string">'07 *****.ogg'</span>
+<span class="token variable">$ls</span>
+$</code></pre>
+<p><code>rm -v</code> 后面的<code>*</code>会匹配到<code>Downloads</code>下所有的文件，这套在bash上使用的扩展匹配符号被叫做<code>Glob</code>，下面这个表格来自<a href="http://guide.bash.academy/expansions/?=Pathname_Expansion#p1.1.0_4">原文</a>。</p>
+<table>
+<thead>
+<tr>
+<th>Glob</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>*</code></td>
+<td>匹配N个字符，N包括0</td>
+</tr>
+<tr>
+<td><code>?</code></td>
+<td>匹配0 ~ 1个字符</td>
+</tr>
+<tr>
+<td><code>[characters]</code></td>
+<td>匹配一个字符，范围来自<code>[...]</code>中的内容，类似正则表达式的<code>[]</code></td>
+</tr>
+<tr>
+<td><code>[:classname:]</code></td>
+<td>类似上一个命令. 支持一系列模式，包括: <em>alnum</em>, <em>alpha</em>, <em>ascii</em>, <em>blank</em>, <em>cntrl</em>, <em>digit</em>, <em>graph</em>, <em>lower</em>, <em>print</em>, <em>punct</em>, <em>space</em>, <em>upper</em>, <em>word</em>, <em>xdigit</em></td>
+</tr>
+</tbody></table>
+<p>可以指令开启更多的glob匹配，具体就不列举了，大概是正则表达式常用的符号<a href="http://guide.bash.academy/expansions/?=Pathname_Expansion#p1.1.0_9">原文</a>。</p>
+<pre><code class="language-bash">$ <span class="token function">shopt</span> -s extglob</code></pre>
+<h3 id="-符号">~ 符号</h3>
+<p><code>echo ~</code> 就知道了, 指向你的<code>Home</code>目录</p>
+<h3 id="命令子句">命令子句</h3>
+<p>形式非常简单，看下面的例子，用<code>$(…)</code>来说明这是条命令子句。值得注意的是只能用在<strong>双引号</strong>内</p>
+<pre><code class="language-bash">$ <span class="token keyword">echo</span> <span class="token string">"The File &lt;hello.txt>: <span class="token variable"><span class="token variable">$(</span><span class="token function">cat</span> hello.txt<span class="token variable">)</span></span>"</span></code></pre>
+<h3 id="re-use-code">Re-use Code</h3>
+<p>复用代码，是最基本的抽象。为了让我们从简单的命令中更进一步，必须开始思考如何 re-use 代码了。先从Bash的变量开始。</p>
+<h3 id="shell-变量">Shell 变量</h3>
+<p>基本形式</p>
+<pre><code class="language-bash"><span class="token comment"># error</span>
+$ name <span class="token operator">=</span> 1 <span class="token comment"># bash中的`=`左右两边是不允许出现空格的</span>
+bash: name: <span class="token function">command</span> not found
+
+<span class="token comment"># right</span>
+$ name<span class="token operator">=</span>1
+$ <span class="token keyword">echo</span> <span class="token variable">$name</span> <span class="token comment"># 通过`$`去获取变量</span>
+1 <span class="token comment"># result</span></code></pre>
+<p>还能用一下上面的命令子句</p>
+<pre><code class="language-bash">$ qiaqia<span class="token operator">=</span><span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">cat</span> qiaqia.txt<span class="token variable">)</span></span>"</span> <span class="token comment"># good job</span></code></pre>
+<p>还能在字符串中插入变量 (即: Parameter Expansion)</p>
+<pre><code class="language-bash">$ name<span class="token operator">=</span><span class="token string">"hali bote"</span> time<span class="token operator">=</span>23.23
+$ <span class="token keyword">echo</span> <span class="token string">"<span class="token variable">$name</span>'s current record is <span class="token variable">$times</span>."</span>
+hali bote<span class="token string">'s current record is .
+$ echo "<span class="token variable">$name</span>'</span>s current record is <span class="token variable">${time}</span>s."
+hali bote's current record is 23.23s.</code></pre>
+<h3 id="变量扩展-parameter-expansion">变量扩展 Parameter Expansion</h3>
+<p><strong>再次留意</strong>， <code>${variable}</code> 这个形式只能使用在<strong>双引号</strong>之间，接下来要比较详细得讲解一些扩展用法。</p>
+<p>我们来看一个例子</p>
+<pre><code class="language-bash">$ name<span class="token operator">=</span>Britta time<span class="token operator">=</span>23.73
+$ <span class="token keyword">echo</span> <span class="token string">"<span class="token variable">$name</span>'s current record is <span class="token variable">${time%.*}</span> seconds and <span class="token variable">${time#*.}</span> hundredths."</span>
+Britta's current record is 23 seconds and 73 hundredths.
+$ <span class="token keyword">echo</span> <span class="token string">"PATH currently contains: <span class="token variable">${PATH//:/, }</span>"</span>
+PATH currently contains: /Users/lhunath/.bin, /usr/local/bin, /usr/bin, /bin, /usr/libexec
+
+<span class="token comment"># From Guide Bash</span></code></pre>
+<p>你可能留意到了<code>${}</code>中的一些特殊用法，<code>%</code>是从后向前匹配最小满足该形式的内容并删去，而<code>#</code>类似前者，不过是从前向后匹配。而下一句命令里的<code>//A/B</code>则是匹配所有满足A形式的内容替换成B。还有一些常见的可以看Bash-Guide的<a href="http://guide.bash.academy/expansions/?=Parameter_Expansion#p2.2.2_5">这个地方</a>，或者是下面的一个简单总结。</p>
+<pre><code class="language-bash"><span class="token comment"># 例子</span>
+url<span class="token operator">=</span><span class="token string">"http://guide.bash.academy/expansions.html"</span>
+$ <span class="token keyword">echo</span> <span class="token string">"Result: <span class="token variable">${url#*/}</span>"</span> <span class="token comment"># 从开头开始，匹配满足*/的最小内容，并移除</span>
+Result: /guide.bash.academy/expansions.html
+
+$ <span class="token punctuation">..</span>.$<span class="token punctuation">{</span>url<span class="token comment">##*/}... # 两个##和一个#的区别在于，匹配的是满足情况的最大内容</span>
+Result: expansions.html
+
+<span class="token comment"># ${parameter$A} 是从后向前匹配并移除, $$即最大内容</span>
+
+<span class="token comment"># ${parameter/A/B} 是匹配第一个满足情况A的内容替换成B</span>
+<span class="token comment"># ${parameter//A/B} 则是匹配所有满足情况的替换</span>
+
+<span class="token comment"># ${parameter/#A/B} 是从__开头__匹配第一个满足情况A的替换成B</span>
+<span class="token comment"># ${parameter/%A/B} 则是从__结尾__匹配</span>
+
+<span class="token comment"># ${#parameter} 计算参数的长度</span>
+<span class="token comment"># ${parameter:start[:length]} start是截取开始的字符位置，length为截取长度，可省略或者是负数(负数即从后向前数)</span>
+
+<span class="token comment"># #{parameter[^|^^|,|,,][A]} 根据形式A(不传即匹配任意字符)去把参数转换成^(首个匹配到大写) ^^(所有匹配到大写) ,(首个匹配到小写) ,,(所有匹配到小写)</span></code></pre>
+<p>再次提醒，这些命令子句都只能使用在<strong>双引号</strong>之间!</p>
+<blockquote>
+<p>MMP bash guide 不更新了… 我得另谋出路</p>
+</blockquote>
+</div></div></div></div></div>
+  </div>
+  <script src="./assets/js/client.9239c44e.js"></script>
+<script src="./assets/js/styles.13059927.js"></script>
+</body>
+</html>
