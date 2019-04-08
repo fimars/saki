@@ -1,20 +1,41 @@
+---
+sidebar: false
+---
+
+<style>
+  .markdown-body {
+    margin-top: 60px;
+  }
+  blockquote {
+    font-size: 22px;
+  }
+  ul {
+    margin-left: 0 !important;
+  }
+  li {
+    font-size: 24px;
+  }
+  li:before {
+    display: none !important;
+  }
+  ul + p {
+    font-size: 15px;
+  }
+</style>
+
+
 ![Saki Logo](./Saki.png)
 
 > Welcome to `Saki`,  Let's talk we want to talk.
 
-## 关于我
+- [关于HellDoc](./About%20Hell)
 
-- 喜欢玩: [Celeste](http://www.celestegame.com/)
-- 喜欢的番剧: `物语系列`
-- 上一本看的书: 夏目漱石的《我是猫》
-- 使用较多的语言: TypeScript, Elixir
-- [Github: fimars](https://github.com/fimars/)
-- [Twitter: fimars](https://twitter.com/_fimars)
+关于`HellDoc`开发的初衷和从中学到的内容
 
-### 怎么样的一个人呢？
+- [More TypeScript](./TypeScript%202.8%20News)
 
-只会一点点前端开发，是鄙视链最底层的程序员；偶尔写一点自己能用得上的代码和能喂饱自己的代码；说是Elixir本当上手，根本就没有写过什么像样的东西！最近在拿着webpack折腾，稍微弄明白了一点点关于webpack的一些基本概念。
+之前看了一篇关于Vuex类型的文章，发现其中很多的功能都是TS2.8更新加入的特性；刚好前几天看到一个写的非常好的博客(文末的TypeScript Evolution)，决定在这里做一个记录。
 
-其他方面的话；因为特别喜欢一个歌手，买了一把便宜的`takamine`正在练习吉他中；玩了Celeste之后偶尔会想去登山；饮料的话只喝茶茶茶，其他的也不是不可以，但是还是喜欢茶。
+- [More Webpack](./More%20Webpack)
 
-看了一眼自己的commit记录，周末从来不写代码成就获得，以上。
+记录了使用过的Webpack生态内好用的工具

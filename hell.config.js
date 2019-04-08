@@ -8,10 +8,8 @@ module.exports = {
   ],
   themeConfig: {
     nav: [
-      { text: '关于我', link: '/' },
-      { text: '关于HellDoc', link: '/About Hell' },
-      { text: 'More Webpack', link: '/More Webpack' },
-      { text: 'TypeScript 2.8 News', link: '/TypeScript 2.8 News' },
+      { text: '/Saki', link: '/' },
+      { text: '关于我', link: '/About Me' }
     ]
   }
 
