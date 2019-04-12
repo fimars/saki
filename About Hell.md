@@ -67,6 +67,10 @@ const serverConfig = Object.assign(
 );
 ```
 
+### @ts-check, @ts-ignore
+
+在抽离为Hell服务的皮肤模块的时候，我意识到不需要那么严格的类型检查。通过`@ts-ignore`去忽略一些运行时添加的数据模块的`import`检查，后续再添加一些需要的类型(但实际上是一种无奈之举);`@ts-check`则相反，是给js文件带来一定的类型推导功能。
+
 ### OVA
 
 因为自己是 TS 用户，顺手帮社区补全了一下[`webpack-chian`](https://github.com/neutrinojs/webpack-chain/pull/132)的类型声明文件。
