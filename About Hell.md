@@ -67,9 +67,17 @@ const serverConfig = Object.assign(
 );
 ```
 
-### @ts-check, @ts-ignore
+### 4. @ts-check, @ts-ignore
 
 在抽离为Hell服务的皮肤模块的时候，我意识到不需要那么严格的类型检查。通过`@ts-ignore`去忽略一些运行时添加的数据模块的`import`检查，后续再添加一些需要的类型(但实际上是一种无奈之举);`@ts-check`则相反，是给js文件带来一定的类型推导功能。
+
+
+
+### 5. webpack如何模拟模块机制
+
+TODO
+
+
 
 ### OVA
 
