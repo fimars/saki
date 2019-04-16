@@ -8,6 +8,8 @@ tags: HellDoc,工具,编程
 
 `HellDoc`就是我拿来理解[`vuepress`](https://github.com/vuejs/vuepress/blob/master/)工作方式的一个玩具项目。开发的过程中遇到的问题正是我学习的机会，下面是一些我在这之前所不熟悉或事一知半解的内容:
 
+## So...
+
 ### 1. Markdown 文件修改的即时更新
 
 vuepress 会把收集到的 md 文件通过 [`markdown-loader`](https://github.com/vuejs/vuepress/blob/master/packages/%40vuepress/markdown-loader/index.js) 编译成一个个的 vue 组件，并且生成一个包括了这些组件的文档应用的 route 文件。
