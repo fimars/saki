@@ -6,19 +6,19 @@ sidebar: false
   .markdown-body {
     margin-top: 60px;
   }
-  blockquote {
+  .markdown-body blockquote {
     font-size: 22px;
   }
-  ul {
+  .markdown-body ul {
     margin-left: 0 !important;
   }
-  li {
+  .markdown-body li {
     font-size: 24px;
   }
-  li:before {
+  .markdown-body li:before {
     display: none !important;
   }
-  ul + p {
+  .markdown-body ul + p {
     font-size: 15px;
   }
 </style>
