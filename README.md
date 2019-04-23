@@ -28,6 +28,10 @@ sidebar: false
 
 > Welcome to `Saki`,  Let's talk we want to talk.
 
+- [TC39 `globalThis`](./TC39%20globalThis)
+
+Polyfill实现非常有趣的一个草案
+
 - [关于HellDoc](./About%20Hell)
 
 关于`HellDoc`开发的初衷和从中学到的内容
