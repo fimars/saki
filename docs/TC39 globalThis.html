@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <title>Hell</title>
+  <link  rel="icon" href="./favicon.png" />
+  <link data-chunk="client" rel="preload" as="style" href="/saki/assets/css/9.styles.111d3227.css">
+<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/9.111d3227.js">
+<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/00cf91f0.js">
+<link data-chunk="Users-fimars-workshadow-OSS-markdowns-TC39-globalThis-md" rel="preload" as="script" href="/saki/assets/js/6.dcf30bef.js">
+  <link data-chunk="client" rel="stylesheet" href="/saki/assets/css/9.styles.111d3227.css">
+</head>
+
+<body>
+  <div id="app"><div class="navbar"><div class="nav-left"><i class="fas fa-bars mobile-bar"></i><a class="nav-link" href="/saki//"><div>/Saki</div></a><a class="nav-link" href="/saki//About Me"><div>关于我</div></a></div><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" value="" class=""/></div></div><div class="columns"><div class="side  "><div class="sidebar-top"><a class="nav-link" href="/saki//"><div>/Saki</div></a><a class="nav-link" href="/saki//About Me"><div>关于我</div></a></div><div class="sidebar-bottom"><div class="nav-label-item level-2"><a href="/saki//TC39 globalThis#tc39-globalthis">TC39 `globalThis`</a></div><div class="nav-label-item level-3"><a href="/saki//TC39 globalThis#故事的开始">故事的开始</a></div><div class="nav-label-item level-3"><a href="/saki//TC39 globalThis#the-polyfill-polyfill">The Polyfill Polyfill</a></div><div class="nav-label-item level-3"><a href="/saki//TC39 globalThis#a-naive">A Naive</a></div><div class="nav-label-item level-3"><a href="/saki//TC39 globalThis#a-robust-polyfill">A Robust Polyfill</a></div></div></div><div class="content main"><div class="markdown-body section"><h2 id="tc39-globalthis">TC39 <code>globalThis</code></h2>
+<blockquote>
+<p> 草案地址: <a href="https://github.com/tc39/proposal-global#html-and-the-windowproxy">Ref</a></p>
+</blockquote>
+<h3 id="故事的开始">故事的开始</h3>
+<p>在9102年的ECMAScript(文后戏称JS)世界里，JS已经不是当年那跑在浏览器里的脚本语言了。我们一拍脑子能想到的运行环境就有：</p>
+<ul>
+<li>浏览器</li>
+<li>Node.js</li>
+<li>根据草案实现的各个<code>Standalone</code>版本（可见此工具的<a href="https://github.com/GoogleChromeLabs/jsvu">README</a></li>
+</ul>
+<p>为了JS可以在不同的<strong>运行环境</strong>下都访问到自己想要的那个全局的<code>this</code>, 于是就有了这个草案，也有了我读了某片博客之后的这篇记录。</p>
+<h3 id="the-polyfill-polyfill">The Polyfill Polyfill</h3>
+<blockquote>
+<p>以下polyfill的思路来自Mathiasbynens的一片<a href="https://mathiasbynens.be/notes/globalthis#naive-polyfill">博客</a></p>
+</blockquote>
+<p>首先，我们分析一下目前JS的几个运行环境;</p>
+<p>浏览器中我们有<code>window</code>对象和<code>frames</code>对象:</p>
+<pre><code class="language-java">globalThis <span class="token operator">==</span><span class="token operator">=</span> window<span class="token punctuation">;</span> <span class="token comment">// true</span>
+globalThis <span class="token operator">==</span><span class="token operator">=</span> frames<span class="token punctuation">;</span> <span class="token comment">// true</span></code></pre>
+<p>虽然在<code>web wrokers</code>中window为<code>undefined</code>, 但是浏览器扩展中也实现了一个叫做<code>self</code>的对象:</p>
+<pre><code class="language-javascript">globalThis <span class="token operator">===</span> self<span class="token punctuation">;</span> <span class="token comment">// true</span></code></pre>
+<p>在 Node.js 中也有很熟悉的<code>global</code>对象:</p>
+<pre><code class="language-javascript">globalThis <span class="token operator">===</span> global<span class="token punctuation">;</span> <span class="token comment">// true</span></code></pre>
+<p>就如同我们文章开头提到的, 还有一些独立的JS实现, 就没有以上这些宿主环境的全局对象。这种情况可以直接去访问全局的<code>this</code>:</p>
+<pre><code class="language-javascript">globalThis <span class="token operator">===</span> <span class="token keyword">this</span><span class="token punctuation">;</span> <span class="token comment">// true</span></code></pre>
+<p>而且，在sloppy模式(即没有开启严格模式)下，函数的this总是指向全局的this，所以就算我们不能像上一个例子一样在全局环境下直接访问<code>this</code>, 也可以通过一个简单的匿名函数去获得:</p>
+<pre><code class="language-javascript">globalThis <span class="token operator">===</span> <span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span></code></pre>
+<p>然鹅，在大部分JS模块标准实现中，最顶层的函数的this一般是<code>undefined</code>，而且函数在严格模式下的<code>this</code>也是<code>undefined</code>, 所以上面这个思路也不行。</p>
+<p>到这个地方，Mathias给了一个特别trick的方法，在严格模式下生成非严格模式的函数：</p>
+<p>使用<code>Function</code>构造器:</p>
+<pre><code class="language-javascript">globalThis <span class="token operator">===</span> <span class="token function">Function</span><span class="token punctuation">(</span><span class="token string">'return this'</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span></code></pre>
+<p>当然使用<code>eval</code>也一样:</p>
+<pre><code class="language-javascript">globalThis <span class="token operator">===</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> eval<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token string">'this'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>在现代浏览器中，<code>Funciton</code>构造器和<code>eval</code>通常被<a href="http://www.ruanyifeng.com/blog/2016/09/csp.html">Content Security Policy(CSP)`</a>限制使用。一般网站有选择的遵循这个policy，但在Chrome插件中则是强制遵循。简而言之，这个polyfill并不能通过这种trick的方法来实现。</p>
+<h3 id="a-naive">A Naive</h3>
+<p>根据上文能很快的得到一个这样的实现：</p>
+<pre><code class="language-javascript"><span class="token comment">// Ref: https://mathiasbynens.be/notes/globalthis#naive-polyfill</span>
+<span class="token comment">// A naive globalThis shim. Don’t use this!</span>
+<span class="token keyword">const</span> <span class="token function-variable function">getGlobal</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> globalThis <span class="token operator">!==</span> <span class="token string">'undefined'</span><span class="token punctuation">)</span> <span class="token keyword">return</span> globalThis<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> self <span class="token operator">!==</span> <span class="token string">'undefined'</span><span class="token punctuation">)</span> <span class="token keyword">return</span> self<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> window <span class="token operator">!==</span> <span class="token string">'undefined'</span><span class="token punctuation">)</span> <span class="token keyword">return</span> window<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> global <span class="token operator">!==</span> <span class="token string">'undefined'</span><span class="token punctuation">)</span> <span class="token keyword">return</span> global<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> <span class="token keyword">this</span> <span class="token operator">!==</span> <span class="token string">'undefined'</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'Unable to locate global object'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment">// Note: `var` is used instead of `const` to ensure `globalThis`</span>
+<span class="token comment">// becomes a global variable (as opposed to a variable in the</span>
+<span class="token comment">// top-level lexical scope) when running in the global scope.</span>
+<span class="token keyword">var</span> globalThis <span class="token operator">=</span> <span class="token function">getGlobal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>这个实现不支持严格模式，非浏览器环境下的一些模块化函数内；</p>
+<h3 id="a-robust-polyfill">A Robust Polyfill</h3>
+<p>那么是否有可能写一个健壮的polyfill实现呢? 在总结如下条件的情况下:</p>
+<ul>
+<li>我们不能依赖环境实现的<code>globalThis</code>, <code>window</code>, <code>self</code>, <code>global</code> 或 <code>this</code>；</li>
+<li>不能使用trick的<code>Function</code>构造器和<code>eval</code>；</li>
+<li>但是你可以仔细考虑一下JS本身所具备的功能。</li>
+</ul>
+<p>下面有这么一个不算漂亮的实现方案；但是在这之前，让我们考虑一些问题：</p>
+<p>我们如何在不考虑<code>globalThis</code>从哪里来的前提下，获取<code>globalThis</code>本身呢? 如果我们可以添任意一个函数在<code>globalThis</code>上，并且我们可以把它当作<code>globalThis</code>的方法来执行，同时它放回的就是<code>this</code>:</p>
+<pre><code class="language-javascript">globalThis<span class="token punctuation">.</span><span class="token function-variable function">foo</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">var</span> globalThisPolyfilled <span class="token operator">=</span> globalThis<span class="token punctuation">.</span><span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>问题就来了，我们到底如何在不依赖<code>globalThis</code>或者任何环境实现的宿主上绑定这样一个函数呢, 这个条件下我们只能得到下文这样的东西：</p>
+<pre><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">var</span> globalThisPolyfilled <span class="token operator">=</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p><code>foo()</code>并不是作为某个对象的方法被执行的, 在严格模式，一些模块化的模块函数哪,<code>this</code>理所当然得是<code>undefined</code>。</p>
+<p>然而，作为某个对象的<code>getters</code>, <code>setters</code>就不一样了：</p>
+<pre><code class="language-javascript">Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span>globalThis<span class="token punctuation">,</span> <span class="token string">'__magic__'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token function-variable function">get</span><span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    configurable<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token comment">// 后续可以删除</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> globalThisPolyfilled <span class="token operator">=</span> __magic__<span class="token punctuation">;</span>
+<span class="token keyword">delete</span> globalThis<span class="token punctuation">.</span>__magic__<span class="token punctuation">;</span></code></pre>
+<p>我们给现在如果直接给<code>globalThis</code>添加一个<code>getter</code>返回<code>this</code>，这个getter会直接返回当前的<code>this</code>；但是我们根本的问题没有解决，我们还是需要依赖<code>GlobalThis</code>。如何把这个函数安装这样一个全局的<code>getter</code>并且不依赖<code>globalThis</code>呢？</p>
+<p>我们可以把这个<code>getter</code>安装到被全局<code>this</code>继承的<code>Object.prototype</code>上:</p>
+<pre><code class="language-javascript">Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span><span class="token class-name">Object</span><span class="token punctuation">.</span>prototype<span class="token punctuation">,</span> <span class="token string">'__magic__'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token function-variable function">get</span><span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    configurable<span class="token punctuation">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> globalThis <span class="token operator">=</span> __magic__<span class="token punctuation">;</span>
+<span class="token keyword">delete</span> <span class="token class-name">Object</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>__magic__<span class="token punctuation">;</span></code></pre>
+<p><strong>⚠️ ECMAScript Spec 并没有强制要求全局的<code>this</code>继承于<code>Object.prototype</code>，如果通过<code>Object.create(null)</code>的方式生成一个全局使用的<code>Object</code>也是可以的，而且 IE7 就是这样做的，幸运的是现代浏览器都是通过<code>Object.prototype</code>继承的</strong></p>
+<p>为了避免浏览器已经实现了<code>globalThis</code>, 我们简单得调整一下:</p>
+<pre><code class="language-javascript"><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> globalThis <span class="token operator">===</span> <span class="token string">'object'</span><span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+    Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span><span class="token class-name">Object</span><span class="token punctuation">.</span>prototype<span class="token punctuation">,</span> <span class="token string">'__magic__'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        <span class="token function-variable function">get</span><span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        configurable<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token comment">// This makes it possible to `delete` the getter later.</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    __magic__<span class="token punctuation">.</span>globalThis <span class="token operator">=</span> __magic__<span class="token punctuation">;</span> <span class="token comment">// lolwat</span>
+    <span class="token keyword">delete</span> <span class="token class-name">Object</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>__magic__<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// Your code can use `globalThis` now.</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>globalThis<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Mathias在文末说到，这可能是你见过最可怕的Polyfill，因为它完全违背了流行的做法：即不修改不属于你的对象，避免操作内置的原型对象。</p>
+<p><a href="https://mathiasbynens.be/notes/globalthis#testing">通过<code>jsvu</code>测试这个Polyfill</a></p>
+</div></div></div></div>
+  <script id="__LOADABLE_REQUIRED_CHUNKS__" type="application/json">[6]</script>
+<script async data-chunk="client" src="/saki/assets/js/9.111d3227.js"></script>
+<script async data-chunk="client" src="/saki/assets/js/00cf91f0.js"></script>
+<script async data-chunk="Users-fimars-workshadow-OSS-markdowns-TC39-globalThis-md" src="/saki/assets/js/6.dcf30bef.js"></script>
+</body>
+</html>
