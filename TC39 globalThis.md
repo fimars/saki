@@ -18,7 +18,7 @@ title: TC39 globalThis
 
 为了JS可以在不同的**运行环境**下都访问到自己想要的那个全局的`this`, 于是就有了这个草案，也有了我读了某片博客之后的这篇记录。
 
-### The Polyfill Polyfill
+### The Polyfill
 
 > 以下polyfill的思路来自Mathiasbynens的一片[博客](https://mathiasbynens.be/notes/globalthis#naive-polyfill)
 
@@ -73,11 +73,11 @@ globalThis === Function('return this')(); // true
 globalThis === (0, eval)('this');
 ```
 
-在现代浏览器中，`Funciton`构造器和`eval`通常被[Content Security Policy(CSP)`](http://www.ruanyifeng.com/blog/2016/09/csp.html)限制使用。一般网站有选择的遵循这个policy，但在Chrome插件中则是强制遵循。简而言之，这个polyfill并不能通过这种trick的方法来实现。
+在现代浏览器中，`Funciton`构造器和`eval`通常被[Content Security Policy(CSP)`](http://www.ruanyifeng.com/blog/2016/09/csp.html)限制使用。虽然一般的网站可以选择是否遵循这个准则，但在Chrome插件中则是强制遵循。简而言之，这个polyfill并不能通过这种trick的方法来实现。
 
-### A Naive
+### A Naive Polyfill
 
-根据上文能很快的得到一个这样的实现：
+根据上文的分析，我们能够得到一个不是很健全的Polyfill实现:
 
 ```javascript
 // Ref: https://mathiasbynens.be/notes/globalthis#naive-polyfill
@@ -96,7 +96,7 @@ const getGlobal = () => {
 var globalThis = getGlobal();
 ```
 
-这个实现不支持严格模式，非浏览器环境下的一些模块化函数内；
+如前文所说，不支持严格模式，在某些非浏览器环境下的模块化组件函数哪无法使用。
 
 ### A Robust Polyfill
 
@@ -178,7 +178,7 @@ delete Object.prototype.__magic__;
 console.log(globalThis);
 ```
 
-Mathias在文末说到，这可能是你见过最可怕的Polyfill，因为它完全违背了流行的做法：即不修改不属于你的对象，避免操作内置的原型对象。
+Mathias在文末说到，这可能是你见过最可怕的Polyfill，因为它完全违背了流行的做法：**即不修改不属于你的对象，避免操作内置的原型对象**。
 
 [通过`jsvu`测试这个Polyfill](https://mathiasbynens.be/notes/globalthis#testing)
 
