@@ -10,13 +10,13 @@
   <link  rel="icon" href="./favicon.png" />
   <link data-chunk="client" rel="preload" as="style" href="/saki/assets/css/9.styles.111d3227.css">
 <link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/9.111d3227.js">
-<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/00cf91f0.js">
-<link data-chunk="Users-fimars-workshadow-OSS-markdowns-TC39-globalThis-md" rel="preload" as="script" href="/saki/assets/js/6.dcf30bef.js">
+<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/2174be84.js">
+<link data-chunk="Users-fimars-workshadow-OSS-markdowns-TC39-globalThis-md" rel="preload" as="script" href="/saki/assets/js/6.9f23ebfe.js">
   <link data-chunk="client" rel="stylesheet" href="/saki/assets/css/9.styles.111d3227.css">
 </head>
 
 <body>
-  <div id="app"><div class="navbar"><div class="nav-left"><i class="fas fa-bars mobile-bar"></i><a class="nav-link" href="/saki//"><div>/Saki</div></a><a class="nav-link" href="/saki//About Me"><div>关于我</div></a></div><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" value="" class=""/></div></div><div class="columns"><div class="side  "><div class="sidebar-top"><a class="nav-link" href="/saki//"><div>/Saki</div></a><a class="nav-link" href="/saki//About Me"><div>关于我</div></a></div><div class="sidebar-bottom"><div class="nav-label-item level-2"><a href="/saki//TC39 globalThis#tc39-globalthis">TC39 `globalThis`</a></div><div class="nav-label-item level-3"><a href="/saki//TC39 globalThis#故事的开始">故事的开始</a></div><div class="nav-label-item level-3"><a href="/saki//TC39 globalThis#the-polyfill-polyfill">The Polyfill Polyfill</a></div><div class="nav-label-item level-3"><a href="/saki//TC39 globalThis#a-naive">A Naive</a></div><div class="nav-label-item level-3"><a href="/saki//TC39 globalThis#a-robust-polyfill">A Robust Polyfill</a></div></div></div><div class="content main"><div class="markdown-body section"><h2 id="tc39-globalthis">TC39 <code>globalThis</code></h2>
+  <div id="app"><div class="navbar"><div class="nav-left"><i class="fas fa-bars mobile-bar"></i><a class="nav-link" href="/saki//"><div>/Saki</div></a><a class="nav-link" href="/saki//About Me"><div>关于我</div></a></div><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" value="" class=""/></div></div><div class="columns"><div class="side  "><div class="sidebar-top"><a class="nav-link" href="/saki//"><div>/Saki</div></a><a class="nav-link" href="/saki//About Me"><div>关于我</div></a></div><div class="sidebar-bottom"><div class="nav-label-item level-2"><a href="/saki//TC39 globalThis#tc39-globalthis">TC39 `globalThis`</a></div><div class="nav-label-item level-3"><a href="/saki//TC39 globalThis#故事的开始">故事的开始</a></div><div class="nav-label-item level-3"><a href="/saki//TC39 globalThis#the-polyfill">The Polyfill</a></div><div class="nav-label-item level-3"><a href="/saki//TC39 globalThis#a-naive-polyfill">A Naive Polyfill</a></div><div class="nav-label-item level-3"><a href="/saki//TC39 globalThis#a-robust-polyfill">A Robust Polyfill</a></div></div></div><div class="content main"><div class="markdown-body section"><h2 id="tc39-globalthis">TC39 <code>globalThis</code></h2>
 <blockquote>
 <p> 草案地址: <a href="https://github.com/tc39/proposal-global#html-and-the-windowproxy">Ref</a></p>
 </blockquote>
@@ -28,7 +28,7 @@
 <li>根据草案实现的各个<code>Standalone</code>版本（可见此工具的<a href="https://github.com/GoogleChromeLabs/jsvu">README</a></li>
 </ul>
 <p>为了JS可以在不同的<strong>运行环境</strong>下都访问到自己想要的那个全局的<code>this</code>, 于是就有了这个草案，也有了我读了某片博客之后的这篇记录。</p>
-<h3 id="the-polyfill-polyfill">The Polyfill Polyfill</h3>
+<h3 id="the-polyfill">The Polyfill</h3>
 <blockquote>
 <p>以下polyfill的思路来自Mathiasbynens的一片<a href="https://mathiasbynens.be/notes/globalthis#naive-polyfill">博客</a></p>
 </blockquote>
@@ -52,9 +52,9 @@ globalThis <span class="token operator">==</span><span class="token operator">=<
 <pre><code class="language-javascript">globalThis <span class="token operator">===</span> <span class="token function">Function</span><span class="token punctuation">(</span><span class="token string">'return this'</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span></code></pre>
 <p>当然使用<code>eval</code>也一样:</p>
 <pre><code class="language-javascript">globalThis <span class="token operator">===</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> eval<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token string">'this'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>在现代浏览器中，<code>Funciton</code>构造器和<code>eval</code>通常被<a href="http://www.ruanyifeng.com/blog/2016/09/csp.html">Content Security Policy(CSP)`</a>限制使用。一般网站有选择的遵循这个policy，但在Chrome插件中则是强制遵循。简而言之，这个polyfill并不能通过这种trick的方法来实现。</p>
-<h3 id="a-naive">A Naive</h3>
-<p>根据上文能很快的得到一个这样的实现：</p>
+<p>在现代浏览器中，<code>Funciton</code>构造器和<code>eval</code>通常被<a href="http://www.ruanyifeng.com/blog/2016/09/csp.html">Content Security Policy(CSP)`</a>限制使用。虽然一般的网站可以选择是否遵循这个准则，但在Chrome插件中则是强制遵循。简而言之，这个polyfill并不能通过这种trick的方法来实现。</p>
+<h3 id="a-naive-polyfill">A Naive Polyfill</h3>
+<p>根据上文的分析，我们能够得到一个不是很健全的Polyfill实现:</p>
 <pre><code class="language-javascript"><span class="token comment">// Ref: https://mathiasbynens.be/notes/globalthis#naive-polyfill</span>
 <span class="token comment">// A naive globalThis shim. Don’t use this!</span>
 <span class="token keyword">const</span> <span class="token function-variable function">getGlobal</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -69,7 +69,7 @@ globalThis <span class="token operator">==</span><span class="token operator">=<
 <span class="token comment">// becomes a global variable (as opposed to a variable in the</span>
 <span class="token comment">// top-level lexical scope) when running in the global scope.</span>
 <span class="token keyword">var</span> globalThis <span class="token operator">=</span> <span class="token function">getGlobal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>这个实现不支持严格模式，非浏览器环境下的一些模块化函数内；</p>
+<p>如前文所说，不支持严格模式，在某些非浏览器环境下的模块化组件函数哪无法使用。</p>
 <h3 id="a-robust-polyfill">A Robust Polyfill</h3>
 <p>那么是否有可能写一个健壮的polyfill实现呢? 在总结如下条件的情况下:</p>
 <ul>
@@ -125,12 +125,12 @@ globalThis <span class="token operator">==</span><span class="token operator">=<
 
 <span class="token comment">// Your code can use `globalThis` now.</span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>globalThis<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>Mathias在文末说到，这可能是你见过最可怕的Polyfill，因为它完全违背了流行的做法：即不修改不属于你的对象，避免操作内置的原型对象。</p>
+<p>Mathias在文末说到，这可能是你见过最可怕的Polyfill，因为它完全违背了流行的做法：<strong>即不修改不属于你的对象，避免操作内置的原型对象</strong>。</p>
 <p><a href="https://mathiasbynens.be/notes/globalthis#testing">通过<code>jsvu</code>测试这个Polyfill</a></p>
 </div></div></div></div>
   <script id="__LOADABLE_REQUIRED_CHUNKS__" type="application/json">[6]</script>
 <script async data-chunk="client" src="/saki/assets/js/9.111d3227.js"></script>
-<script async data-chunk="client" src="/saki/assets/js/00cf91f0.js"></script>
-<script async data-chunk="Users-fimars-workshadow-OSS-markdowns-TC39-globalThis-md" src="/saki/assets/js/6.dcf30bef.js"></script>
+<script async data-chunk="client" src="/saki/assets/js/2174be84.js"></script>
+<script async data-chunk="Users-fimars-workshadow-OSS-markdowns-TC39-globalThis-md" src="/saki/assets/js/6.9f23ebfe.js"></script>
 </body>
 </html>
