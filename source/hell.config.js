@@ -1,7 +1,7 @@
 module.exports = {
   title: '|> Saki',
   base: '/saki/',
-  dest: 'docs',
+  dest: '../docs',
   ignores: ["ignores/*"],
   head: [
     ['link', { rel: 'icon', href: './favicon.png' }]
@@ -12,5 +12,4 @@ module.exports = {
       { text: '关于我', link: '/About Me' }
     ]
   }
-
 }
