@@ -32,6 +32,10 @@ sidebar: false
 
 Polyfill实现非常有趣的一个草案
 
+- [More Webpack](./More%20Webpack)
+
+记录了使用过的Webpack生态内好用的工具
+
 - [关于HellDoc](./About%20Hell)
 
 关于`HellDoc`开发的初衷和从中学到的内容
@@ -39,7 +43,3 @@ Polyfill实现非常有趣的一个草案
 - [More TypeScript](./TypeScript%202.8%20News)
 
 之前看了一篇关于Vuex类型的文章，发现其中很多的功能都是TS2.8更新加入的特性；刚好前几天看到一个写的非常好的博客(文末的TypeScript Evolution)，决定在这里做一个记录。
-
-- [More Webpack](./More%20Webpack)
-
-记录了使用过的Webpack生态内好用的工具
