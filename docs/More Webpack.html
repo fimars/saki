@@ -8,15 +8,15 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <title>Hell</title>
   <link  rel="icon" href="./favicon.png" />
-  <link data-chunk="client" rel="preload" as="style" href="/saki/assets/css/9.styles.068cfe40.css">
-<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/9.068cfe40.js">
-<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/3c606112.js">
-<link data-chunk="Users-fimars-workshadow-OSS-markdowns-source-More-Webpack-md" rel="preload" as="script" href="/saki/assets/js/4.e3bb314f.js">
-  <link data-chunk="client" rel="stylesheet" href="/saki/assets/css/9.styles.068cfe40.css">
+  <link data-chunk="client" rel="preload" as="style" href="/saki/assets/css/9.styles.63549c2f.css">
+<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/9.63549c2f.js">
+<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/cdcad992.js">
+<link data-chunk="Users-fimars-workshadow-OSS-markdowns-source-More-Webpack-md" rel="preload" as="script" href="/saki/assets/js/4.671fd390.js">
+  <link data-chunk="client" rel="stylesheet" href="/saki/assets/css/9.styles.63549c2f.css">
 </head>
 
 <body>
-  <div id="app"><div class="navbar"><div class="nav-left"><i class="fas fa-bars mobile-bar"></i><a class="nav-link" href="/saki//"><div>/Saki</div></a><a class="nav-link" href="/saki//About Me"><div>关于我</div></a></div><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" value="" class=""/></div></div><div class="columns"><div class="side  "><div class="sidebar-top"><a class="nav-link" href="/saki//"><div>/Saki</div></a><a class="nav-link" href="/saki//About Me"><div>关于我</div></a></div><div class="sidebar-bottom"><div class="nav-label-item level-1"><a href="/saki//More Webpack#more-webpack">More Webpack</a></div><div class="nav-label-item level-3"><a href="/saki//More Webpack#生态">生态</a></div><div class="nav-label-item level-3"><a href="/saki//More Webpack#插件">插件</a></div></div></div><div class="content main"><div class="markdown-body section"><h1 id="more-webpack">More Webpack</h1>
+  <div id="app"><div class="navbar"><div class="nav-left"><i class="fas fa-bars mobile-bar"></i><a class="nav-link" href="/saki//"><div>/Saki</div></a><a class="nav-link" href="/saki//About Me"><div>关于我</div></a></div><div class="search-box"><i class="fas fa-search search-icon"></i><input type="text" value="" class=""/></div></div><div class="columns"><div class="side  "><div class="sidebar-top"><a class="nav-link" href="/saki//"><div>/Saki</div></a><a class="nav-link" href="/saki//About Me"><div>关于我</div></a></div><div class="sidebar-bottom"><div class="nav-label-item level-1"><a href="/saki//More Webpack#more-webpack">More Webpack</a></div><div class="nav-label-item level-3"><a href="/saki//More Webpack#生态">生态</a></div><div class="nav-label-item level-3"><a href="/saki//More Webpack#插件">插件</a></div><div class="nav-label-item level-3"><a href="/saki//More Webpack#tips">Tips</a></div><div class="nav-label-item level-3"><a href="/saki//More Webpack#next-version-webpack-5">Next Version (Webpack 5)</a></div></div></div><div class="content main"><div class="markdown-body section"><h1 id="more-webpack">More Webpack</h1>
 <p>最近这段时间接触Webpack比较多，整理一下比较好用的一些Webpack插件，以及相关的工具。比较常用的一些插件(如<code>html-webpack-plugin</code>)以及语言相关的loader就不放在这里了，这个并没有什么值得说的。</p>
 <h3 id="生态">生态</h3>
 <p><strong>更舒服的Webpack</strong></p>
@@ -33,22 +33,58 @@
 <li>webpack4必备的css提取插件 <a href="https://github.com/webpack-contrib/mini-css-extract-plugin">mini-css-extract-plugin</a></li>
 <li>如果你需要复制一些静态内容 <a href="https://github.com/webpack-contrib/copy-webpack-plugin">copy-webpack-plugin</a></li>
 <li>如果你想让你的应用支持PWA <a href="https://github.com/GoogleChrome/workbox">workbox</a></li>
+<li>如果你需要国际化支持 <a href="https://github.com/webpack/i18n-webpack-plugin">i18n-webpack-plugin</a></li>
 </ul>
 <p><strong>开发环境</strong></p>
 <ul>
 <li>webpack编译过程图形化输出 <a href="https://github.com/nuxt/webpackbar">webpackbar</a></li>
 </ul>
-<p><strong>性能调优，问题调试插件</strong></p>
+<p><strong>性能调优，TreeShake情况分析，问题调试插件</strong></p>
 <ul>
 <li>打包性能分析插件 <a href="https://webpack.js.org/plugins/profiling-plugin/">Wepack.ProfilingPlugin</a></li>
 <li>Stats输出插件 <a href="https://github.com/unindented/stats-webpack-plugin">StatsPlugin</a></li>
 <li>打包结果体积可视化 <a href="https://github.com/webpack-contrib/webpack-bundle-analyzer">WebpackBundleAnalyzer</a></li>
 </ul>
-<p><em>未完</em></p>
+<h3 id="tips">Tips</h3>
+<ul>
+<li><p>common部分或者打包成DLL模块这部分尽量不要发生变化，才能在版本迭代的时候保证客户端缓存能被触发(视产品类型，宁可一开始就把整个组件库放进去)</p>
+</li>
+<li><p>大部分脚手架都有合理的生产环境打包配置，出现异常情况时，应该结合获取打包过程信息 <code>Stat</code> 的插件分析是不是某个模块或者某个写法导致 tree-shaking 没有合理触发。</p>
+</li>
+</ul>
+<h3 id="next-version-webpack-5">Next Version (Webpack 5)</h3>
+<p><strong>开发环境</strong></p>
+<ul>
+<li>将会移除node.js的 <code>crypto</code> polyfills</li>
+<li>优化开发环境打包结果，更合理的语意命名</li>
+<li>优化开发时的打包缓存使用</li>
+</ul>
+<p><strong>生产相关</strong></p>
+<ul>
+<li>优化生产环境打包结果，无改动的模块还是一样的 chunkId，优化客户端缓存触发</li>
+<li>JS模块的导出命名调整成可预期的结果</li>
+<li>优化 <code>无/少JS模块</code> 的打包结果（如样式模块）</li>
+<li>细化 <code>缓存</code> 配置，指定缓存的模块，可自定义的缓存结果版本</li>
+</ul>
+<p><strong>杂项</strong></p>
+<ul>
+<li><strong>Node Version: &gt;=8.9.0</strong></li>
+<li>一些逻辑上的bugs修复</li>
+<li>一些配置默认值的修改</li>
+<li><code>stat</code> 对象中根据新配置增加了相关信息</li>
+<li>优化了 <code>tree-shaking</code> 对模块的来源分析</li>
+<li>扩展对象的序列化功能</li>
+<li>Tapable 1 -&gt; 2</li>
+<li>优化了配置的类型，使用 <code>Set</code> 代替数组</li>
+<li>asyncWasm, topLevelAwait, import(Async/Await) 实验性支持</li>
+</ul>
+<blockquote>
+<p>参考Tobias最近一次演讲的<a href="https://raw.githubusercontent.com/sokra/slides/master/data/webpack-5-whats-new.pdf">slides</a></p>
+</blockquote>
 </div></div></div></div>
   <script id="__LOADABLE_REQUIRED_CHUNKS__" type="application/json">[4]</script>
-<script async data-chunk="client" src="/saki/assets/js/9.068cfe40.js"></script>
-<script async data-chunk="client" src="/saki/assets/js/3c606112.js"></script>
-<script async data-chunk="Users-fimars-workshadow-OSS-markdowns-source-More-Webpack-md" src="/saki/assets/js/4.e3bb314f.js"></script>
+<script async data-chunk="client" src="/saki/assets/js/9.63549c2f.js"></script>
+<script async data-chunk="client" src="/saki/assets/js/cdcad992.js"></script>
+<script async data-chunk="Users-fimars-workshadow-OSS-markdowns-source-More-Webpack-md" src="/saki/assets/js/4.671fd390.js"></script>
 </body>
 </html>
