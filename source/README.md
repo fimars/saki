@@ -28,6 +28,10 @@ sidebar: false
 
 > Welcome to `Saki`,  Let's talk we want to talk.
 
+- [JavaScript's Unicode](./JavaScript's%20Unicode)
+
+JavaScript中的Unicode
+
 - [TC39 `globalThis`](./TC39%20globalThis)
 
 Polyfill实现非常有趣的一个草案

@@ -6,7 +6,7 @@ sidebar: false
 
 - 喜欢玩: [Celeste](http://www.celestegame.com/)
 - 喜欢的番剧: `物语系列`
-- 上一本看的书: 夏目漱石的《我是猫》
+- 上一本看的书: 毛姆的《刀锋》
 - 使用较多的语言: TypeScript, Elixir
 - [Github: fimars](https://github.com/fimars/)
 - [Twitter: fimars](https://twitter.com/_fimars)

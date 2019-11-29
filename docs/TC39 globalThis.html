@@ -8,11 +8,11 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <title>Hell</title>
   <link  rel="icon" href="./favicon.png" />
-  <link data-chunk="client" rel="preload" as="style" href="/saki/assets/css/9.styles.63549c2f.css">
-<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/9.63549c2f.js">
-<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/cdcad992.js">
-<link data-chunk="Users-fimars-workshadow-OSS-markdowns-source-TC39-globalThis-md" rel="preload" as="script" href="/saki/assets/js/6.148e9419.js">
-  <link data-chunk="client" rel="stylesheet" href="/saki/assets/css/9.styles.63549c2f.css">
+  <link data-chunk="client" rel="preload" as="style" href="/saki/assets/css/10.styles.6368fa1a.css">
+<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/10.6368fa1a.js">
+<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/3899cf6c.js">
+<link data-chunk="Users-fimars-akl-saki-source-TC39-globalThis-md" rel="preload" as="script" href="/saki/assets/js/7.3ce70889.js">
+  <link data-chunk="client" rel="stylesheet" href="/saki/assets/css/10.styles.6368fa1a.css">
 </head>
 
 <body>
@@ -52,7 +52,7 @@ globalThis <span class="token operator">==</span><span class="token operator">=<
 <pre><code class="language-javascript">globalThis <span class="token operator">===</span> <span class="token function">Function</span><span class="token punctuation">(</span><span class="token string">'return this'</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span></code></pre>
 <p>当然使用<code>eval</code>也一样:</p>
 <pre><code class="language-javascript">globalThis <span class="token operator">===</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> eval<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token string">'this'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>在现代浏览器中，<code>Funciton</code>构造器和<code>eval</code>通常被<a href="http://www.ruanyifeng.com/blog/2016/09/csp.html">Content Security Policy(CSP)`</a>限制使用。虽然一般的网站可以选择是否遵循这个准则，但在Chrome插件中则是强制遵循。简而言之，这个polyfill并不能通过这种trick的方法来实现。</p>
+<p>在现代浏览器中，<code>Funciton</code>构造器和<code>eval</code>通常被[Content Security Policy(CSP)`](<a href="http://www.ruanyifeng.com/blog/2016/09/csp.html)%E9%99%90%E5%88%B6%E4%BD%BF%E7%94%A8%E3%80%82%E8%99%BD%E7%84%B6%E4%B8%80%E8%88%AC%E7%9A%84%E7%BD%91%E7%AB%99%E5%8F%AF%E4%BB%A5%E9%80%89%E6%8B%A9%E6%98%AF%E5%90%A6%E9%81%B5%E5%BE%AA%E8%BF%99%E4%B8%AA%E5%87%86%E5%88%99%EF%BC%8C%E4%BD%86%E5%9C%A8Chrome%E6%8F%92%E4%BB%B6%E4%B8%AD%E5%88%99%E6%98%AF%E5%BC%BA%E5%88%B6%E9%81%B5%E5%BE%AA%E3%80%82%E7%AE%80%E8%80%8C%E8%A8%80%E4%B9%8B%EF%BC%8C%E8%BF%99%E4%B8%AApolyfill%E5%B9%B6%E4%B8%8D%E8%83%BD%E9%80%9A%E8%BF%87%E8%BF%99%E7%A7%8Dtrick%E7%9A%84%E6%96%B9%E6%B3%95%E6%9D%A5%E5%AE%9E%E7%8E%B0%E3%80%82">http://www.ruanyifeng.com/blog/2016/09/csp.html)限制使用。虽然一般的网站可以选择是否遵循这个准则，但在Chrome插件中则是强制遵循。简而言之，这个polyfill并不能通过这种trick的方法来实现。</a></p>
 <h3 id="a-naive-polyfill">A Naive Polyfill</h3>
 <p>根据上文的分析，我们能够得到一个不是很健全的Polyfill实现:</p>
 <pre><code class="language-javascript"><span class="token comment">// Ref: https://mathiasbynens.be/notes/globalthis#naive-polyfill</span>
@@ -128,9 +128,9 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <p>Mathias在文末说到，这可能是你见过最可怕的Polyfill，因为它完全违背了流行的做法：<strong>即不修改不属于你的对象，避免操作内置的原型对象</strong>。</p>
 <p><a href="https://mathiasbynens.be/notes/globalthis#testing">通过<code>jsvu</code>测试这个Polyfill</a></p>
 </div></div></div></div>
-  <script id="__LOADABLE_REQUIRED_CHUNKS__" type="application/json">[6]</script>
-<script async data-chunk="client" src="/saki/assets/js/9.63549c2f.js"></script>
-<script async data-chunk="client" src="/saki/assets/js/cdcad992.js"></script>
-<script async data-chunk="Users-fimars-workshadow-OSS-markdowns-source-TC39-globalThis-md" src="/saki/assets/js/6.148e9419.js"></script>
+  <script id="__LOADABLE_REQUIRED_CHUNKS__" type="application/json">[7]</script>
+<script async data-chunk="client" src="/saki/assets/js/10.6368fa1a.js"></script>
+<script async data-chunk="client" src="/saki/assets/js/3899cf6c.js"></script>
+<script async data-chunk="Users-fimars-akl-saki-source-TC39-globalThis-md" src="/saki/assets/js/7.3ce70889.js"></script>
 </body>
 </html>

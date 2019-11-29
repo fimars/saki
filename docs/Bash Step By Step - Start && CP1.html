@@ -8,11 +8,11 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <title>Hell</title>
   <link  rel="icon" href="./favicon.png" />
-  <link data-chunk="client" rel="preload" as="style" href="/saki/assets/css/9.styles.63549c2f.css">
-<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/9.63549c2f.js">
-<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/cdcad992.js">
-<link data-chunk="Users-fimars-workshadow-OSS-markdowns-source-Bash-Step-By-Step---Start-CP1-md" rel="preload" as="script" href="/saki/assets/js/3.cd870b79.js">
-  <link data-chunk="client" rel="stylesheet" href="/saki/assets/css/9.styles.63549c2f.css">
+  <link data-chunk="client" rel="preload" as="style" href="/saki/assets/css/10.styles.6368fa1a.css">
+<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/10.6368fa1a.js">
+<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/3899cf6c.js">
+<link data-chunk="Users-fimars-akl-saki-source-Bash-Step-By-Step---Start-CP1-md" rel="preload" as="script" href="/saki/assets/js/3.cdbb47dc.js">
+  <link data-chunk="client" rel="stylesheet" href="/saki/assets/css/10.styles.6368fa1a.css">
 </head>
 
 <body>
@@ -92,13 +92,13 @@
 <p>基本形式: <code>[time [-p]] [ ! ] command [ [|或|&amp;] cmmand2 ... ]</code></p>
 </blockquote>
 <p>注：以下有个简单例子</p>
-<pre><code class="language-bash">$ <span class="token keyword">echo</span> Hello <span class="token operator">|</span> <span class="token function">rev</span>
+<pre><code class="language-bash">$ <span class="token builtin class-name">echo</span> Hello <span class="token operator">|</span> <span class="token function">rev</span>
 <span class="token comment"># output: olleH</span>
 
-$ <span class="token function">rm</span> doesntexistfile <span class="token operator">|</span><span class="token operator">&amp;</span> <span class="token function">rev</span>
+$ <span class="token function">rm</span> doesntexistfile <span class="token operator">|&amp;</span> <span class="token function">rev</span>
 <span class="token comment"># output: yrotcerid ro elif hcus oN :eliftsixetnseod :mr</span>
 
-$ <span class="token function">time</span> <span class="token keyword">echo</span> Hello
+$ <span class="token function">time</span> <span class="token builtin class-name">echo</span> Hello
 <span class="token comment"># output: Hello &lt;newline>&lt;newline> echo 0m0.004s etc...</span>
 
 <span class="token comment"># ! 关键字暂时没有讨论到，待补充</span></code></pre>
@@ -110,7 +110,7 @@ $ <span class="token function">time</span> <span class="token keyword">echo</spa
 <p><strong>指令名</strong>：Bash会根据 <code>指令名</code> 去查找 <code>已定义的fn</code> , <code>builtin-fn</code> 或 <code>$PATH</code> 里有的程序去执行，type可以查找指令的所在位置 —— <code>type command</code>。</p>
 <p><strong>参数</strong>：command后面的参数用空格分割，字符串中有空格用<code>&quot;</code>, <code>&#39;</code>包裹或者用<code>\</code>转义空格。字符串<code>&quot;&quot;</code> 内可包裹变量<code>$variable</code> 或 命令<code>$(command)</code></p>
 <p>请务必留意引号的使用，有个危险的例子可以看看</p>
-<pre><code class="language-bash">$ <span class="token function">read</span> -p <span class="token string">'Which user would you like to remove from your system ?'</span> username
+<pre><code class="language-bash">$ <span class="token builtin class-name">read</span> -p <span class="token string">'Which user would you like to remove from your system ?'</span> username
 <span class="token comment"># Something Print ...?  lucifa</span>
 
 $ <span class="token function">rm</span> -vr /home/<span class="token variable">$username</span>
@@ -128,13 +128,13 @@ $ <span class="token function">rm</span> -vr /home/<span class="token variable">
 <li><p><code>/dev</code> 下存放的是直接指向系统设备的文件, <code>/dev/null</code> 则是其中一个特殊的存在，这个文件不管写，一直为空。可以把不在意的错误信息指向这个文件。</p>
 </li>
 <li><p>当你很理所当然得使用如下操作时，其实情况非常危险⚠️</p>
-<pre><code class="language-bash">$ <span class="token function">ls</span> -l a b <span class="token operator">></span>myfiles.ls 2<span class="token operator">></span>mayflies.ls
+<pre><code class="language-bash">$ <span class="token function">ls</span> -l a b <span class="token operator">></span>myfiles.ls <span class="token operator"><span class="token file-descriptor important">2</span>></span>mayflies.ls
 <span class="token comment"># 理想状态应该是，把正常输入写到myfiles, 然后，把错误信息写到后面</span>
 <span class="token comment"># 实际结果却如下</span>
 <span class="token comment"># -rw-r--r--  1 lhunath  stls: b: No such file or directoryaff  0 30 Apr 14:43 a</span>
 <span class="token comment"># 混乱的结果</span></code></pre>
 <p>因为两个FD同时打开了这个文件流，所以导致混合的结果。正确的操作如下</p>
-<pre><code class="language-bash">$ <span class="token function">ls</span> -l a b <span class="token operator">></span>myfiles.ls 2<span class="token operator">></span><span class="token operator">&amp;</span>1
+<pre><code class="language-bash">$ <span class="token function">ls</span> -l a b <span class="token operator">></span>myfiles.ls <span class="token operator"><span class="token file-descriptor important">2</span>></span><span class="token file-descriptor important">&amp;1</span>
 <span class="token comment"># 使用 >&amp; 操作符，让FD2指向FD1的文件流</span></code></pre>
 </li>
 <li><p><code>[x]&gt;file, [x]&lt;file</code> 指令的FD1指向文件，指令的FD0从文件输入</p>
@@ -150,7 +150,7 @@ $ <span class="token function">rm</span> -vr /home/<span class="token variable">
 <li><p><code>[x]&amp;&gt;file</code> 同时重定向FD1，FD2到File</p>
 </li>
 <li><p><code>[x]&lt;&gt;file</code> 把FD0, FD1都指向一个文件</p>
-<pre><code class="language-bash">$ <span class="token function">exec</span> 3<span class="token operator">></span><span class="token operator">&amp;</span>1 <span class="token operator">></span>mylog<span class="token punctuation">;</span> <span class="token keyword">echo</span> moo<span class="token punctuation">;</span> <span class="token function">exec</span> 1<span class="token operator">></span><span class="token operator">&amp;</span>3 3<span class="token operator">></span><span class="token operator">&amp;</span>-
+<pre><code class="language-bash">$ <span class="token builtin class-name">exec</span> <span class="token operator"><span class="token file-descriptor important">3</span>></span><span class="token file-descriptor important">&amp;1</span> <span class="token operator">></span>mylog<span class="token punctuation">;</span> <span class="token builtin class-name">echo</span> moo<span class="token punctuation">;</span> <span class="token builtin class-name">exec</span> <span class="token operator"><span class="token file-descriptor important">1</span>></span><span class="token file-descriptor important">&amp;3</span> <span class="token operator"><span class="token file-descriptor important">3</span>>&amp;</span>-
 <span class="token comment"># 这个地方先把当前进程的FD1 copy 到FD3来，然后把FD1指向一个文件</span>
 <span class="token comment"># 接着来一发echo，等于是把输出值写到文件，最后结束的时候exec</span>
 <span class="token comment"># 重新把FD1指回一开始的Display，把FD3抛弃掉</span></code></pre>
@@ -165,8 +165,8 @@ $ <span class="token function">rm</span> -vr /home/<span class="token variable">
 </ol>
 </div></div></div></div>
   <script id="__LOADABLE_REQUIRED_CHUNKS__" type="application/json">[3]</script>
-<script async data-chunk="client" src="/saki/assets/js/9.63549c2f.js"></script>
-<script async data-chunk="client" src="/saki/assets/js/cdcad992.js"></script>
-<script async data-chunk="Users-fimars-workshadow-OSS-markdowns-source-Bash-Step-By-Step---Start-CP1-md" src="/saki/assets/js/3.cd870b79.js"></script>
+<script async data-chunk="client" src="/saki/assets/js/10.6368fa1a.js"></script>
+<script async data-chunk="client" src="/saki/assets/js/3899cf6c.js"></script>
+<script async data-chunk="Users-fimars-akl-saki-source-Bash-Step-By-Step---Start-CP1-md" src="/saki/assets/js/3.cdbb47dc.js"></script>
 </body>
 </html>

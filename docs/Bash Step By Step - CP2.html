@@ -8,11 +8,11 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <title>Hell</title>
   <link  rel="icon" href="./favicon.png" />
-  <link data-chunk="client" rel="preload" as="style" href="/saki/assets/css/9.styles.63549c2f.css">
-<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/9.63549c2f.js">
-<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/cdcad992.js">
-<link data-chunk="Users-fimars-workshadow-OSS-markdowns-source-Bash-Step-By-Step---CP2-md" rel="preload" as="script" href="/saki/assets/js/2.6f9ac39f.js">
-  <link data-chunk="client" rel="stylesheet" href="/saki/assets/css/9.styles.63549c2f.css">
+  <link data-chunk="client" rel="preload" as="style" href="/saki/assets/css/10.styles.6368fa1a.css">
+<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/10.6368fa1a.js">
+<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/3899cf6c.js">
+<link data-chunk="Users-fimars-akl-saki-source-Bash-Step-By-Step---CP2-md" rel="preload" as="script" href="/saki/assets/js/2.063d4e10.js">
+  <link data-chunk="client" rel="stylesheet" href="/saki/assets/css/10.styles.6368fa1a.css">
 </head>
 
 <body>
@@ -24,7 +24,7 @@
 <p>今天也有在看Parcel和Parcel的代码，因为自己的项目用到了这个新的Bundler库，看到一个很有意思的<a href="https://github.com/parcel-bundler/parcel/issues/110#issuecomment-350259878">issue</a>。里面这个shell蛮有意思的。</p>
 <h3 id="路径扩展-pathname-expansion">路径扩展 (Pathname Expansion)</h3>
 <p>看个例子:</p>
-<pre><code class="language-bash">$ <span class="token function">cd</span> ~/Downloads
+<pre><code class="language-bash">$ <span class="token builtin class-name">cd</span> ~/Downloads
 $ <span class="token function">rm</span> -v *
 removed <span class="token string">'05 *****.ogg'</span>
 removed <span class="token string">'07 *****.ogg'</span>
@@ -56,23 +56,23 @@ $</code></pre>
 </tr>
 </tbody></table>
 <p>可以指令开启更多的glob匹配，具体就不列举了，大概是正则表达式常用的符号<a href="http://guide.bash.academy/expansions/?=Pathname_Expansion#p1.1.0_9">原文</a>。</p>
-<pre><code class="language-bash">$ <span class="token function">shopt</span> -s extglob</code></pre>
+<pre><code class="language-bash">$ <span class="token builtin class-name">shopt</span> -s extglob</code></pre>
 <h3 id="-符号">~ 符号</h3>
 <p><code>echo ~</code> 就知道了, 指向你的<code>Home</code>目录</p>
 <h3 id="命令子句">命令子句</h3>
 <p>形式非常简单，看下面的例子，用<code>$(…)</code>来说明这是条命令子句。值得注意的是只能用在<strong>双引号</strong>内</p>
-<pre><code class="language-bash">$ <span class="token keyword">echo</span> <span class="token string">"The File &lt;hello.txt>: <span class="token variable"><span class="token variable">$(</span><span class="token function">cat</span> hello.txt<span class="token variable">)</span></span>"</span></code></pre>
+<pre><code class="language-bash">$ <span class="token builtin class-name">echo</span> <span class="token string">"The File &lt;hello.txt>: <span class="token variable"><span class="token variable">$(</span><span class="token function">cat</span> hello.txt<span class="token variable">)</span></span>"</span></code></pre>
 <h3 id="re-use-code">Re-use Code</h3>
 <p>复用代码，是最基本的抽象。为了让我们从简单的命令中更进一步，必须开始思考如何 re-use 代码了。先从Bash的变量开始。</p>
 <h3 id="shell-变量">Shell 变量</h3>
 <p>基本形式</p>
 <pre><code class="language-bash"><span class="token comment"># error</span>
-$ name <span class="token operator">=</span> 1 <span class="token comment"># bash中的`=`左右两边是不允许出现空格的</span>
-bash: name: <span class="token function">command</span> not found
+$ name <span class="token operator">=</span> <span class="token number">1</span> <span class="token comment"># bash中的`=`左右两边是不允许出现空格的</span>
+bash: name: <span class="token builtin class-name">command</span> not found
 
 <span class="token comment"># right</span>
-$ name<span class="token operator">=</span>1
-$ <span class="token keyword">echo</span> <span class="token variable">$name</span> <span class="token comment"># 通过`<!DOCTYPE html>
+$ <span class="token assign-left variable">name</span><span class="token operator">=</span><span class="token number">1</span>
+$ <span class="token builtin class-name">echo</span> <span class="token variable">$name</span> <span class="token comment"># 通过`<!DOCTYPE html>
 <html>
 
 <head>
@@ -82,41 +82,41 @@ $ <span class="token keyword">echo</span> <span class="token variable">$name</sp
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <title>Hell</title>
   <!--head-->
-  <link data-chunk="client" rel="preload" as="style" href="/saki/assets/css/9.styles.63549c2f.css">
-<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/9.63549c2f.js">
-<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/cdcad992.js">
-<link data-chunk="Users-fimars-workshadow-OSS-markdowns-source-Bash-Step-By-Step---CP2-md" rel="preload" as="script" href="/saki/assets/js/2.6f9ac39f.js">
-  <link data-chunk="client" rel="stylesheet" href="/saki/assets/css/9.styles.63549c2f.css">
+  <link data-chunk="client" rel="preload" as="style" href="/saki/assets/css/10.styles.6368fa1a.css">
+<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/10.6368fa1a.js">
+<link data-chunk="client" rel="preload" as="script" href="/saki/assets/js/3899cf6c.js">
+<link data-chunk="Users-fimars-akl-saki-source-Bash-Step-By-Step---CP2-md" rel="preload" as="script" href="/saki/assets/js/2.063d4e10.js">
+  <link data-chunk="client" rel="stylesheet" href="/saki/assets/css/10.styles.6368fa1a.css">
 </head>
 
 <body>
   <div id="app">去获取变量</span>
-1 <span class="token comment"># result</span></code></pre>
+<span class="token number">1</span> <span class="token comment"># result</span></code></pre>
 <p>还能用一下上面的命令子句</p>
-<pre><code class="language-bash">$ qiaqia<span class="token operator">=</span><span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">cat</span> qiaqia.txt<span class="token variable">)</span></span>"</span> <span class="token comment"># good job</span></code></pre>
+<pre><code class="language-bash">$ <span class="token assign-left variable">qiaqia</span><span class="token operator">=</span><span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">cat</span> qiaqia.txt<span class="token variable">)</span></span>"</span> <span class="token comment"># good job</span></code></pre>
 <p>还能在字符串中插入变量 (即: Parameter Expansion)</p>
-<pre><code class="language-bash">$ name<span class="token operator">=</span><span class="token string">"hali bote"</span> time<span class="token operator">=</span>23.23
-$ <span class="token keyword">echo</span> <span class="token string">"<span class="token variable">$name</span>'s current record is <span class="token variable">$times</span>."</span>
+<pre><code class="language-bash">$ <span class="token assign-left variable">name</span><span class="token operator">=</span><span class="token string">"hali bote"</span> <span class="token assign-left variable">time</span><span class="token operator">=</span><span class="token number">23.23</span>
+$ <span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$name</span>'s current record is <span class="token variable">$times</span>."</span>
 hali bote<span class="token string">'s current record is .
 $ echo "<span class="token variable">$name</span>'</span>s current record is <span class="token variable">${time}</span>s."
-hali bote's current record is 23.23s.</code></pre>
+hali bote's current record is <span class="token number">23</span>.23s.</code></pre>
 <h3 id="变量扩展-parameter-expansion">变量扩展 Parameter Expansion</h3>
 <p><strong>再次留意</strong>， <code>${variable}</code> 这个形式只能使用在<strong>双引号</strong>之间，接下来要比较详细得讲解一些扩展用法。</p>
 <p>我们来看一个例子</p>
-<pre><code class="language-bash">$ name<span class="token operator">=</span>Britta time<span class="token operator">=</span>23.73
-$ <span class="token keyword">echo</span> <span class="token string">"<span class="token variable">$name</span>'s current record is <span class="token variable">${time%.*}</span> seconds and <span class="token variable">${time#*.}</span> hundredths."</span>
-Britta's current record is 23 seconds and 73 hundredths.
-$ <span class="token keyword">echo</span> <span class="token string">"PATH currently contains: <span class="token variable">${PATH//:/, }</span>"</span>
-PATH currently contains: /Users/lhunath/.bin, /usr/local/bin, /usr/bin, /bin, /usr/libexec
+<pre><code class="language-bash">$ <span class="token assign-left variable">name</span><span class="token operator">=</span>Britta <span class="token assign-left variable">time</span><span class="token operator">=</span><span class="token number">23.73</span>
+$ <span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$name</span>'s current record is <span class="token variable">${time<span class="token operator">%</span>.*}</span> seconds and <span class="token variable">${time<span class="token operator">#</span>*.}</span> hundredths."</span>
+Britta's current record is <span class="token number">23</span> seconds and <span class="token number">73</span> hundredths.
+$ <span class="token builtin class-name">echo</span> <span class="token string">"PATH currently contains: <span class="token variable">${<span class="token environment constant">PATH</span><span class="token operator">/</span><span class="token operator">/</span><span class="token operator">:</span><span class="token operator">/</span><span class="token operator">,</span> }</span>"</span>
+<span class="token environment constant">PATH</span> currently contains: /Users/lhunath/.bin, /usr/local/bin, /usr/bin, /bin, /usr/libexec
 
 <span class="token comment"># From Guide Bash</span></code></pre>
 <p>你可能留意到了<code>${}</code>中的一些特殊用法，<code>%</code>是从后向前匹配最小满足该形式的内容并删去，而<code>#</code>类似前者，不过是从前向后匹配。而下一句命令里的<code>//A/B</code>则是匹配所有满足A形式的内容替换成B。还有一些常见的可以看Bash-Guide的<a href="http://guide.bash.academy/expansions/?=Parameter_Expansion#p2.2.2_5">这个地方</a>，或者是下面的一个简单总结。</p>
 <pre><code class="language-bash"><span class="token comment"># 例子</span>
-url<span class="token operator">=</span><span class="token string">"http://guide.bash.academy/expansions.html"</span>
-$ <span class="token keyword">echo</span> <span class="token string">"Result: <span class="token variable">${url#*/}</span>"</span> <span class="token comment"># 从开头开始，匹配满足*/的最小内容，并移除</span>
+<span class="token assign-left variable">url</span><span class="token operator">=</span><span class="token string">"http://guide.bash.academy/expansions.html"</span>
+$ <span class="token builtin class-name">echo</span> <span class="token string">"Result: <span class="token variable">${url<span class="token operator">#</span>*<span class="token operator">/</span>}</span>"</span> <span class="token comment"># 从开头开始，匹配满足*/的最小内容，并移除</span>
 Result: /guide.bash.academy/expansions.html
 
-$ <span class="token punctuation">..</span>.$<span class="token punctuation">{</span>url<span class="token comment">##*/}... # 两个##和一个#的区别在于，匹配的是满足情况的最大内容</span>
+$ <span class="token punctuation">..</span>.<span class="token variable">${url<span class="token operator">##</span>*<span class="token operator">/</span>}</span><span class="token punctuation">..</span>. <span class="token comment"># 两个##和一个#的区别在于，匹配的是满足情况的最大内容</span>
 Result: expansions.html
 
 <span class="token comment"># ${parameter$A} 是从后向前匹配并移除, $即最大内容</span>
@@ -137,8 +137,8 @@ Result: expansions.html
 </blockquote>
 </div></div></div></div>
   <script id="__LOADABLE_REQUIRED_CHUNKS__" type="application/json">[2]</script>
-<script async data-chunk="client" src="/saki/assets/js/9.63549c2f.js"></script>
-<script async data-chunk="client" src="/saki/assets/js/cdcad992.js"></script>
-<script async data-chunk="Users-fimars-workshadow-OSS-markdowns-source-Bash-Step-By-Step---CP2-md" src="/saki/assets/js/2.6f9ac39f.js"></script>
+<script async data-chunk="client" src="/saki/assets/js/10.6368fa1a.js"></script>
+<script async data-chunk="client" src="/saki/assets/js/3899cf6c.js"></script>
+<script async data-chunk="Users-fimars-akl-saki-source-Bash-Step-By-Step---CP2-md" src="/saki/assets/js/2.063d4e10.js"></script>
 </body>
 </html>
