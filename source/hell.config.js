@@ -9,7 +9,7 @@ module.exports = {
   themeConfig: {
     nav: [
       { text: '/Saki', link: '/' },
-      { text: '关于我', link: '/About Me' }
+      { text: '关于我', link: '/About Me.html' }
     ]
   }
 }
